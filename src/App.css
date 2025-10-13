@@ -1,38 +1,99 @@
-.App {
-  text-align: center;
+:root {
+  --neon-primary: #00ffc4; /* Verde Ciberpunk */
+  --neon-secondary: #ff007f; /* Magenta */
+  --bg-dark: #121212; /* Fondo casi negro */
+  --text-light: #e0e0e0;
+  --text-warning: #ffd700; /* Dorado para títulos */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* La fuente se asume cargada en index.html */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Estilos de Tipografía NEON */
+.neon-text {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--text-light);
+  text-shadow: 0 0 5px var(--neon-primary), 0 0 10px var(--neon-primary), 0 0 20px var(--neon-primary);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.neon-text-primary {
+  color: var(--neon-primary);
+  text-shadow: 0 0 3px var(--neon-primary);
 }
 
-.App-link {
-  color: #61dafb;
+.neon-text-secondary {
+  color: var(--neon-secondary);
+  text-shadow: 0 0 3px var(--neon-secondary);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Estilos de Contenedores y Bordes */
+.neon-border-box {
+    border: 1px solid var(--neon-primary);
+    box-shadow: 0 0 5px var(--neon-primary);
+}
+
+.border-neon-primary {
+    border: 1px solid var(--neon-primary) !important;
+    box-shadow: 0 0 10px var(--neon-primary) !important;
+}
+
+.border-neon-secondary {
+    border: 1px solid var(--neon-secondary) !important;
+    box-shadow: 0 0 10px var(--neon-secondary) !important;
+}
+
+/* Estilos de Botones */
+.neon-button-primary {
+    background-color: var(--neon-primary);
+    color: var(--bg-dark);
+    border: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 5px var(--neon-primary);
+}
+
+.neon-button-primary:hover {
+    background-color: #00e6b8;
+    box-shadow: 0 0 15px var(--neon-primary);
+    transform: scale(1.02);
+}
+
+/* CORRECCIÓN CLAVE PARA VISIBILIDAD (Texto del Input) */
+.form-control {
+    background-color: #1a1a1a !important; /* Fondo del input muy oscuro */
+    color: var(--text-light) !important; /* Texto del input CLARO */
+    border-color: #555 !important;
+}
+
+.form-control:focus {
+    border-color: var(--neon-primary) !important;
+    box-shadow: 0 0 8px var(--neon-primary) !important;
+    background-color: #222 !important; 
+    color: var(--text-light) !important;
+}
+
+/* Estilos de Cabecera y Pie de Página (por si tu compañero los usa) */
+header, footer {
+    background-color: #000000;
+    border-top: 2px solid var(--neon-secondary);
+}
+
+.nav-link.active, .nav-link:hover {
+    color: var(--neon-primary) !important;
+    text-shadow: 0 0 5px var(--neon-primary);
+}
+
+/* Estilos para el Toast de notificación */
+.toast-custom {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    min-width: 250px;
+    z-index: 1050;
+    border: 1px solid var(--neon-primary);
+    box-shadow: 0 0 10px var(--neon-primary);
 }
