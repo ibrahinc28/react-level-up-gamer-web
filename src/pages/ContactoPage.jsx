@@ -15,14 +15,13 @@ function ContactoPage() {
     const [errors, setErrors] = useState({});
     const [showToast, setShowToast] = useState(false);
 
-    // Maneja el cambio en los inputs del formulario
     const handleChange = useCallback((e) => {
         const { name, value } = e.target;
         setFormData(prevData => ({
             ...prevData,
             [name]: value,
         }));
-        // Limpia el error cuando el usuario empieza a escribir
+
         if (errors[name]) {
             setErrors(prevErrors => ({
                 ...prevErrors,
@@ -31,7 +30,6 @@ function ContactoPage() {
         }
     }, [errors]);
 
-    // Función de validación del formulario
     const validateForm = useCallback(() => {
         let newErrors = {};
         let isValid = true;
@@ -60,21 +58,20 @@ function ContactoPage() {
         return isValid;
     }, [formData]);
 
-    // Maneja el envío del formulario
     const handleSubmit = (e) => {
         e.preventDefault();
         
         if (validateForm()) {
-            // Aquí se simularía el envío de datos a un servidor o API
             console.log('Datos enviados:', formData);
-            setShowToast(true); // Muestra la notificación de éxito
-            setFormData(initialFormData); // Resetea el formulario
+            setShowToast(true);
+            setFormData(initialFormData);
         }
     };
 
     const contactInfo = [
-        { icon: '📍', title: 'Ubicación Central', text: 'Gran Vía 52, Madrid, España' },
-        { icon: '📧', title: 'Soporte Email', text: 'soporte@level-up-gamer.com' },
+        { icon: '📍', title: 'Ubicación Central', text: 'Av. Antonio Varas #303, Of. 606' },
+        { icon: '📞', title: 'Línea Directa', text: '+569 1345678' },
+        { icon: '📧', title: 'Soporte Email', text: 'contacto@levelupgamer.cl' },
         { icon: '🕒', title: 'Horario', text: 'Lunes a Viernes: 10:00 - 18:00 HRS' },
     ];
 
@@ -209,5 +206,4 @@ function ContactoPage() {
     );
 }
 
-// **Esta línea es esencial para solucionar tu error de "element type is invalid"**
 export default ContactoPage;
