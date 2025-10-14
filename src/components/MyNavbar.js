@@ -7,6 +7,7 @@ import blogIcon from '../images/blog.png';
 import contactoIcon from '../images/contacto.png';
 import loginIcon from '../images/login.png'; 
 
+
 function MyNavbar() {
     return (
         <Navbar bg="dark" variant="dark" expand="lg" style={{ backgroundColor: '#000000' }}>
