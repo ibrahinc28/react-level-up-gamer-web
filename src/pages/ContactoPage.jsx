@@ -102,6 +102,9 @@ function ContactoPage() {
                     <h2 className="neon-text-secondary mt-5 mb-3">Síguenos</h2>
                     <div className="d-flex social-icons">
                         {/* Sustitución de iconos FontAwesome por emojis o texto para evitar errores de compilación */}
+                        <span className="social-icon">📘 Facebook</span>
+                        <span className="social-icon">📸 Instagram</span>
+                        <span className="social-icon">🐦 X (Twitter)</span>
                         <span className="social-icon">🕹️ Discord</span>
                         <span className="social-icon">🎥 YouTube</span>
                         <span className="social-icon">👾 Twitch</span>
