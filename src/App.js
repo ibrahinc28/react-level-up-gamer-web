@@ -6,7 +6,7 @@ import './App.css';
 function App() {
     return (
         <div className="App">
-            {/* El Header y Footer se eliminaron del código */}
+            {/* */}
             
             <main>
                 <ContactoPage />

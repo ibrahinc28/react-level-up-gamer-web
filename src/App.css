@@ -1,19 +1,17 @@
 :root {
-  --neon-primary: #00ffc4; /* Verde Ciberpunk */
-  --neon-secondary: #ff007f; /* Magenta */
-  --bg-dark: #121212; /* Fondo casi negro */
+  --neon-primary: #00ffc4;
+  --neon-secondary: #ff007f;
+  --bg-dark: #121212;
   --text-light: #e0e0e0;
-  --text-warning: #ffd700; /* Dorado para títulos */
+  --text-warning: #ffd700;
 }
 
-/* La fuente se asume cargada en index.html */
 body {
   font-family: 'Roboto', sans-serif;
   background-color: var(--bg-dark);
   color: var(--text-light);
 }
 
-/* Estilos de Tipografía NEON */
 .neon-text {
   font-family: 'Orbitron', sans-serif;
   color: var(--text-light);
@@ -30,7 +28,6 @@ body {
   text-shadow: 0 0 3px var(--neon-secondary);
 }
 
-/* Estilos de Contenedores y Bordes */
 .neon-border-box {
     border: 1px solid var(--neon-primary);
     box-shadow: 0 0 5px var(--neon-primary);
@@ -46,7 +43,6 @@ body {
     box-shadow: 0 0 10px var(--neon-secondary) !important;
 }
 
-/* Estilos de Botones */
 .neon-button-primary {
     background-color: var(--neon-primary);
     color: var(--bg-dark);
@@ -62,10 +58,9 @@ body {
     transform: scale(1.02);
 }
 
-/* CORRECCIÓN CLAVE PARA VISIBILIDAD (Texto del Input) */
 .form-control {
-    background-color: #1a1a1a !important; /* Fondo del input muy oscuro */
-    color: var(--text-light) !important; /* Texto del input CLARO */
+    background-color: #1a1a1a !important;
+    color: var(--text-light) !important;
     border-color: #555 !important;
 }
 
@@ -76,7 +71,6 @@ body {
     color: var(--text-light) !important;
 }
 
-/* Estilos de Cabecera y Pie de Página (por si tu compañero los usa) */
 header, footer {
     background-color: #000000;
     border-top: 2px solid var(--neon-secondary);
@@ -87,7 +81,6 @@ header, footer {
     text-shadow: 0 0 5px var(--neon-primary);
 }
 
-/* Estilos para el Toast de notificación */
 .toast-custom {
     position: fixed;
     top: 20px;
