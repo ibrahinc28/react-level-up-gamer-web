@@ -1,38 +1,121 @@
-.App {
-  text-align: center;
+:root {
+    --neon-primary: #00ffc4;
+    --neon-secondary: #ff007f;
+    --bg-dark: #121212;
+    --text-light: #e0e0e0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+html, body, #root {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+header {
+    background-color: #000000;
+    border-bottom: 3px solid var(--neon-secondary);
+    box-shadow: 0 5px 20px rgba(255, 0, 127, 0.3);
+    padding: 30px 60px;
+    display: flex;
+    align-items: center; 
+}
+.navbar-brand {
+    font-size: 2.8em; 
+    margin-right: 40px; 
+}
+.nav-link {
+    color: var(--text-light) !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 1.4em;
+    padding: 15px 22px !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.nav-link:hover, .nav-link.active {
+    color: var(--neon-primary) !important;
+    text-shadow: 0 0 5px var(--neon-primary);
+    transform: translateY(-2px);
+}
+.logo-image {
+    height: 85px;
+    width: auto;
+    filter: drop-shadow(0 0 5px var(--neon-primary));
 }
 
-.App-link {
-  color: #61dafb;
+.neon-glow-text-secondary {
+    color: var(--neon-secondary);
+    text-shadow: 
+        0 0 5px rgba(255, 0, 127, 0.6), 
+        0 0 10px var(--neon-secondary), 
+        0 0 20px rgba(255, 0, 127, 0.8);
+}
+.neon-glow-text-primary {
+    color: var(--neon-primary);
+    text-shadow: 
+        0 0 5px rgba(0, 255, 196, 0.6), 
+        0 0 10px var(--neon-primary), 
+        0 0 20px rgba(0, 255, 196, 0.8);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-default, .btn-neon-action, .btn-disabled {
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1em; 
+}
+
+.btn-default {
+    background-color: rgba(51, 51, 51, 0.6);
+    color: var(--text-light);
+    border: 1px solid var(--neon-primary);
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    box-shadow: 0 0 5px rgba(0, 255, 196, 0.3);
+}
+
+.btn-default:hover {
+    background-color: var(--neon-primary);
+    color: var(--bg-dark);
+    border-color: var(--neon-primary);
+    box-shadow: 0 0 12px var(--neon-primary);
+}
+
+.btn-neon-action {
+    background-color: var(--neon-secondary);
+    color: var(--bg-dark);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-transform: uppercase;
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+    transition: all 0.3s ease;
+}
+
+.btn-neon-action:hover {
+    background-color: #ff3399;
+    box-shadow: 0 0 20px var(--neon-secondary), 0 0 30px rgba(255, 0, 127, 0.8);
+    transform: scale(1.05);
+}
+
+.btn-disabled {
+    background-color: rgba(40, 40, 40, 0.8) !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+    cursor: not-allowed !important;
+    border: 1px solid rgba(0, 255, 196, 0.3) !important;
+    box-shadow: 0 0 5px rgba(0, 255, 196, 0.1) !important;
+    opacity: 0.8;
+}
+
+.btn-disabled:hover {
+    background-color: rgba(40, 40, 40, 0.8) !important; 
+    box-shadow: 0 0 5px rgba(0, 255, 196, 0.1) !important;
+    transform: none !important;
 }
