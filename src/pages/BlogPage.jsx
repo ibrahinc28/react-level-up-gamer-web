@@ -2,6 +2,18 @@ import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import BlogCard from '../components/BlogCard';
+import articulo1 from '../images/articulo1.jpg';
+import articulo2 from '../images/articulo2.jpg';
+import consola from '../images/consola-pc.jpg';
+import teclados from '../images/teclados.jpg';
+import intel from '../images/intel-amd.jpg';
+import ps5 from '../images/ps5-ssd.jpg';
+import prom from '../images/promo-pc.jpg';
+import promo from '../images/promo-perifericos.jpg';
+import best from '../images/bestseller-cpu.jpg';
+import bestseller from '../images/bestseller-gpu.jpg';
+import guia from '../images/guia-armado.jpg';
+import guiaarm from '../images/guia-cooling.jpg';
 
 const blogArticles = [
     { 
@@ -9,7 +21,7 @@ const blogArticles = [
         title: "¡Revisa los nuevos y alucinantes lanzamientos en el Nintendo Direct!", 
         date: "21 Jun, 2024", 
         summary: "Últimos esperados e inesperados remakes y novedades que Nintendo presentó.", 
-        imageSrc: "https://placehold.co/400x200/222222/FFFFFF?text=Nintendo+Direct", 
+        imageSrc: articulo1, 
         type: "news" 
     },
     { 
@@ -17,7 +29,7 @@ const blogArticles = [
         title: "Cuando una pantalla no es suficiente, los proyectores son la solución", 
         date: "14 Jun, 2024", 
         summary: "Siempre se han usado las grandes pantallas, pero analizamos los pros de los proyectores.", 
-        imageSrc: "https://placehold.co/400x200/505050/FFFFFF?text=PROYECTOR", 
+        imageSrc: articulo2, 
         type: "news" 
     },
     { 
@@ -25,7 +37,7 @@ const blogArticles = [
         title: "¿PC o consola? Comparación para el gamer moderno", 
         date: "11 Jun, 2024", 
         summary: "Un debate eterno: analizamos pros y contras para ayudarte a elegir tu plataforma ideal.", 
-        imageSrc: "https://placehold.co/400x200/007bff/FFFFFF?text=PC+VS+CONSOLA", 
+        imageSrc: consola, 
         type: "news" 
     },
     { 
@@ -33,7 +45,7 @@ const blogArticles = [
         title: "Diferencias entre teclados mecánicos y de membrana", 
         date: "13 Jun, 2024", 
         summary: "Descubre el tipo de teclado que mejor se adapta a tu estilo de juego y comodidad.", 
-        imageSrc: "https://placehold.co/400x200/000000/FFFFFF?text=TECLADOS+GAMER", 
+        imageSrc: teclados, 
         type: "news" 
     },
     { 
@@ -41,7 +53,7 @@ const blogArticles = [
         title: "Diferencias de rendimiento entre Ryzen y Core i9", 
         date: "17 Jun, 2024", 
         summary: "Una mirada a la última generación de CPUs para ver cuál te ofrece el mejor rendimiento.", 
-        imageSrc: "https://placehold.co/400x200/900000/FFFFFF?text=AMD+VS+INTEL", 
+        imageSrc: intel, 
         type: "news" 
     },
     { 
@@ -49,7 +61,7 @@ const blogArticles = [
         title: "Comparación de memorias SSD NVMe Gen 4 vs Gen 5", 
         date: "21 Jun, 2024", 
         summary: "Mejora la velocidad de carga de tus juegos y programas con las últimas SSDs.", 
-        imageSrc: "https://placehold.co/400x200/003366/FFFFFF?text=NVMe+SSD", 
+        imageSrc: ps5, 
         type: "news" 
     },
 
@@ -58,7 +70,7 @@ const blogArticles = [
         title: "¡Descuento del 15% en PCs Gamers Armados!", 
         date: "", 
         summary: "Aprovecha esta oportunidad para potenciar tu experiencia de juego con PCs listos para usar.", 
-        imageSrc: "https://placehold.co/400x200/FF0000/FFFFFF?text=PROMO+PC+15%25", 
+        imageSrc: prom, 
         type: "promotion" 
     },
     { 
@@ -66,7 +78,7 @@ const blogArticles = [
         title: "Lanzamiento: Nuevo Teclado Mecánico RGB", 
         date: "", 
         summary: "Conoce nuestro nuevo teclado con switches y personalización RGB de alto nivel.", 
-        imageSrc: "https://placehold.co/400x200/AA55FF/FFFFFF?text=TECLADO+LANZAMIENTO", 
+        imageSrc: promo, 
         type: "promotion" 
     },
 
@@ -75,7 +87,7 @@ const blogArticles = [
         title: "AMD Ryzen 9 7950X3D: El rey de los videojuegos", 
         date: "17 Jun, 2024", 
         summary: "Conoce por qué este procesador es el más buscado por los gamers de alto rendimiento.", 
-        imageSrc: "https://placehold.co/400x200/FF5733/FFFFFF?text=Ryzen+9", 
+        imageSrc: best, 
         type: "bestseller" 
     },
     { 
@@ -83,7 +95,7 @@ const blogArticles = [
         title: "NVIDIA RTX 4070 Ti: Calidad-precio insuperable", 
         date: "20 Jun, 2024", 
         summary: "Una tarjeta gráfica que puedes usar en cualquier tipo de juego, rendimiento garantizado.", 
-        imageSrc: "https://placehold.co/400x200/00AA77/FFFFFF?text=RTX+4070+Ti", 
+        imageSrc: bestseller, 
         type: "bestseller" 
     },
 
@@ -92,7 +104,7 @@ const blogArticles = [
         title: "Guía completa para armar tu primer PC Gamer", 
         date: "10 Jun, 2024", 
         summary: "Paso a paso, te enseñamos a elegir los componentes y ensamblar tu máquina de ensueño.", 
-        imageSrc: "https://placehold.co/400x200/00AAFF/FFFFFF?text=GUIA+PC+ARMADO", 
+        imageSrc: guia, 
         type: "guide" 
     },
     { 
@@ -100,7 +112,7 @@ const blogArticles = [
         title: "Todo sobre la refrigeración líquida cEDE para tu PC", 
         date: "05 Jun, 2024", 
         summary: "Ventajas, desventajas y cómo instalarla correctamente para mantener baja la temperatura.", 
-        imageSrc: "https://placehold.co/400x200/999999/FFFFFF?text=REFRIGERACION", 
+        imageSrc: guiaarm, 
         type: "guide" 
     },
 ];
