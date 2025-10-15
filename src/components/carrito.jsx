@@ -21,17 +21,14 @@ const CartRow = ({ item, removeItem, updateQuantity }) => {
                 fontSize: '1.1em'
             }}
         >
-            {/* Nombre del Producto */}
             <div style={{ flex: 1, fontWeight: 'bold', marginRight: '24px', fontSize: '1.2em' }}>
                 {item.name}
             </div>
             
-            {/* Precio Unitario */}
             <div style={{ marginRight: '24px', fontSize: '1em' }}>
                 Precio: ${item.price.toLocaleString('es-CL')}
             </div>
             
-            {/* Columna Cantidad */}
             <div style={{ display: 'flex', alignItems: 'center', marginRight: '24px' }}>
                 <button 
                     className={getQuantityButtonClass(item.quantity <= 1)}
@@ -57,15 +54,13 @@ const CartRow = ({ item, removeItem, updateQuantity }) => {
                 </button>
             </div>
             
-            {/* Subtotal del Ítem */}
             <div style={{ fontWeight: 'bold', marginRight: '24px', fontSize: '1.3em' }}>
                 ${itemSubtotal.toLocaleString('es-CL')}
             </div>
 
-            {/* Columna Eliminar */}
             <div>
                 <button
-                    style={{ color: 'var(--neon-primary)', border: 'none', background: 'none', cursor: 'pointer', fontSize: '2em', padding: '0 10px' }} // Botón 'X' mucho más grande
+                    style={{ color: 'var(--neon-primary)', border: 'none', background: 'none', cursor: 'pointer', fontSize: '2em', padding: '0 10px' }} 
                     title="Eliminar producto"
                     onClick={() => removeItem(item.id)}
                 >
@@ -98,8 +93,8 @@ const Carrito = ({
 
         return (
             <div style={{ marginTop: '24px' }}>
-                {/* Encabezados (Tabla simple) */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', borderBottom: '2px solid var(--neon-primary)', paddingBottom: '12px', marginBottom: '12px', paddingLeft: '20px', paddingRight: '20px', fontSize: '1.3em' }}> {/* Texto encabezado más grande */}
+
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', borderBottom: '2px solid var(--neon-primary)', paddingBottom: '12px', marginBottom: '12px', paddingLeft: '20px', paddingRight: '20px', fontSize: '1.3em' }}>
                     <div style={{ flex: 1 }}>Producto</div>
                     <div style={{ marginRight: '24px' }}>Precio</div>
                     <div style={{ marginRight: '24px' }}>Cantidad</div>
@@ -107,7 +102,6 @@ const Carrito = ({
                     <div>Eliminar</div>
                 </div>
 
-                {/* Filas de Productos */}
                 {cartItems.map((item) => (
                     <CartRow 
                         key={item.id} 
@@ -128,37 +122,32 @@ const Carrito = ({
 
     return (
         <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '40px' }}>
-            {/* Título Principal */}
-            <h1 className="neon-glow-text-secondary" style={{ textAlign: 'center', fontSize: '3.5em', fontWeight: 'bold', marginBottom: '40px' }}> {/* Título más grande */}
+
+            <h1 className="neon-glow-text-secondary" style={{ textAlign: 'center', fontSize: '3.5em', fontWeight: 'bold', marginBottom: '40px' }}>
                 Carrito de Compras
             </h1>
 
-            {/* Mensaje de Compra/Vaciado (Solo si hay mensaje) */}
             {purchaseMessage && (
                 <div style={{ textAlign: 'center', marginBottom: '24px', color: 'var(--neon-primary)', border: '2px solid var(--neon-primary)', padding: '12px', borderRadius: '6px', fontSize: '1.2em' }}>
                     {purchaseMessage}
                 </div>
             )}
 
-            {/* Detalle Superior del Estado del Carrito */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '2px solid #333', paddingBottom: '12px', marginBottom: '24px', fontSize: '1.3em' }}> {/* Texto de estado más grande */}
+            <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '2px solid #333', paddingBottom: '12px', marginBottom: '24px', fontSize: '1.3em' }}>
                 <p style={{ fontWeight: '600' }}>Total de productos: {totalProducts}</p>
                 <p style={{ fontWeight: '600' }}>{cartIsEmpty ? 'Tu carrito está vacío.' : ''}</p>
             </div>
 
-            {/* Listado de Productos (Tabla) */}
             {renderCartItems()}
 
-            {/* Contenedor de Resumen y Totales (Siempre visible) */}
             <div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '2px solid #333' }}>
-                
-                {/* Totales alineados a la derecha */}
+
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginBottom: '32px', lineHeight: '1.6' }}>
-                    <div style={{ fontSize: '1.5em' }}> {/* Texto de subtotales más grande */}
+                    <div style={{ fontSize: '1.5em' }}>
                         <span>Subtotal:</span>
                         <span style={{ width: '150px', display: 'inline-block', textAlign: 'right', fontWeight: 'bold', marginLeft: '16px' }}>${subtotal.toLocaleString('es-CL')} CLP</span>
                     </div>
-                    {/* El costo de envío solo se muestra si hay productos */}
+
                     {cartIsEmpty ? (
                         <div style={{ fontSize: '1.5em', color: '#666' }}> 
                             <span>Envío:</span>
@@ -171,42 +160,37 @@ const Carrito = ({
                         </div>
                     )}
                     
-                    <div style={{ width: '100%', height: '2px', backgroundColor: 'var(--neon-secondary)', margin: '16px 0' }}></div> {/* Línea separadora más gruesa */}
+                    <div style={{ width: '100%', height: '2px', backgroundColor: 'var(--neon-secondary)', margin: '16px 0' }}></div>
                     
-                    {/* TOTAL A PAGAR con estilo NEON PRIMARIO */}
-                    <div style={{ fontSize: '2.5em', fontWeight: '900', color: 'var(--neon-primary)', textShadow: '0 0 5px rgba(0, 255, 196, 0.4)' }}> {/* Total mucho más grande */}
+                    <div style={{ fontSize: '2.5em', fontWeight: '900', color: 'var(--neon-primary)', textShadow: '0 0 5px rgba(0, 255, 196, 0.4)' }}>
                         <span>Total a Pagar:</span>
                         <span style={{ width: '150px', display: 'inline-block', textAlign: 'right', marginLeft: '16px' }}>${displayTotalPagar.toLocaleString('es-CL')} CLP</span>
                     </div>
                 </div>
 
-                {/* Botones de Acción centrados */}
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}> {/* Mayor separación entre botones */}
-                    <div style={{ display: 'flex', gap: '24px' }}> {/* Mayor separación horizontal */}
-                        {/* Botón Vaciar Carrito (btn-default o btn-disabled) */}
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
+                    <div style={{ display: 'flex', gap: '24px' }}> 
+
                         <button 
                             id="vaciar-carrito" 
                             className={cartIsEmpty ? 'btn-disabled' : 'btn-default'}
                             onClick={vaciarCarrito}
                             disabled={cartIsEmpty}
-                            style={{ padding: '15px 30px', fontSize: '1.2em' }} // Botón más grande
+                            style={{ padding: '15px 30px', fontSize: '1.2em' }}
                         >
                             Vaciar Carrito
                         </button>
-                        
-                        {/* Botón Finalizar Compra (btn-neon-action o btn-disabled) */}
+
                         <button 
                             id="finalizar-compra" 
                             className={cartIsEmpty ? 'btn-disabled' : 'btn-neon-action'}
                             onClick={finalizarCompra}
                             disabled={cartIsEmpty}
-                            style={{ padding: '15px 30px', fontSize: '1.2em' }} // Botón más grande
+                            style={{ padding: '15px 30px', fontSize: '1.2em' }}
                         >
                             Finalizar Compra
                         </button>
                     </div>
-                    
-                    {/* Enlace Continuar Comprando (TAMAÑO AUMENTADO AQUÍ) */}
                     <a 
                         href="#productos"
                         className="btn-default"
