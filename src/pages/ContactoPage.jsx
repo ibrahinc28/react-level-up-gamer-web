@@ -84,7 +84,6 @@ function ContactoPage() {
 
             <Row className="justify-content-center">
                 
-                {/* Columna de Información de Contacto */}
                 <Col lg={5} className="mb-4">
                     <h2 className="neon-text-secondary mb-4">Nuestra Información</h2>
                     {contactInfo.map((item, index) => (
@@ -101,7 +100,7 @@ function ContactoPage() {
 
                     <h2 className="neon-text-secondary mt-5 mb-3">Síguenos</h2>
                     <div className="d-flex social-icons">
-                        {/* Sustitución de iconos FontAwesome por emojis o texto para evitar errores de compilación */}
+                        
                         <span className="social-icon">📘 Facebook</span>
                         <span className="social-icon">📸 Instagram</span>
                         <span className="social-icon">🐦 X (Twitter)</span>
@@ -111,13 +110,12 @@ function ContactoPage() {
                     </div>
                 </Col>
 
-                {/* Columna de Formulario */}
                 <Col lg={7}>
                     <Card className="bg-dark text-light border-neon-primary p-4 shadow-lg">
                         <Card.Body>
                             <Card.Title className="neon-text-primary mb-4">Envíanos un Mensaje</Card.Title>
                             <Form onSubmit={handleSubmit}>
-                                {/* Campo Nombre */}
+
                                 <Form.Group className="mb-3" controlId="formName">
                                     <Form.Label>Nombre</Form.Label>
                                     <Form.Control
@@ -132,7 +130,6 @@ function ContactoPage() {
                                     <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
                                 </Form.Group>
 
-                                {/* Campo Email */}
                                 <Form.Group className="mb-3" controlId="formEmail">
                                     <Form.Label>Email</Form.Label>
                                     <Form.Control
@@ -147,7 +144,6 @@ function ContactoPage() {
                                     <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
                                 </Form.Group>
                                 
-                                {/* Campo Asunto */}
                                 <Form.Group className="mb-3" controlId="formSubject">
                                     <Form.Label>Asunto</Form.Label>
                                     <Form.Control
@@ -162,7 +158,6 @@ function ContactoPage() {
                                     <Form.Control.Feedback type="invalid">{errors.subject}</Form.Control.Feedback>
                                 </Form.Group>
 
-                                {/* Campo Mensaje */}
                                 <Form.Group className="mb-4" controlId="formMessage">
                                     <Form.Label>Mensaje</Form.Label>
                                     <Form.Control
@@ -178,7 +173,6 @@ function ContactoPage() {
                                     <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
                                 </Form.Group>
 
-                                {/* Botón de Envío */}
                                 <div className="d-grid gap-2">
                                     <Button variant="primary" type="submit" className="neon-button-primary">
                                         Enviar Mensaje
@@ -190,7 +184,6 @@ function ContactoPage() {
                 </Col>
             </Row>
 
-            {/* Toast de confirmación (sustituye a alert()) */}
             <Toast 
                 onClose={() => setShowToast(false)} 
                 show={showToast} 
