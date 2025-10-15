@@ -8,32 +8,99 @@ const blogArticles = [
         id: 1, 
         title: "¡Revisa los nuevos y alucinantes lanzamientos en el Nintendo Direct!", 
         date: "21 Jun, 2024", 
-        summary: "Últimos esperados e inesperados remakes y...", 
-        imageSrc: "https://placehold.co/400x200/505050/FFFFFF?text=NEWS+1", 
+        summary: "Últimos esperados e inesperados remakes y novedades que Nintendo presentó.", 
+        imageSrc: "https://placehold.co/400x200/222222/FFFFFF?text=Nintendo+Direct", 
         type: "news" 
     },
+    { 
+        id: 2, 
+        title: "Cuando una pantalla no es suficiente, los proyectores son la solución", 
+        date: "14 Jun, 2024", 
+        summary: "Siempre se han usado las grandes pantallas, pero analizamos los pros de los proyectores.", 
+        imageSrc: "https://placehold.co/400x200/505050/FFFFFF?text=PROYECTOR", 
+        type: "news" 
+    },
+    { 
+        id: 3, 
+        title: "¿PC o consola? Comparación para el gamer moderno", 
+        date: "11 Jun, 2024", 
+        summary: "Un debate eterno: analizamos pros y contras para ayudarte a elegir tu plataforma ideal.", 
+        imageSrc: "https://placehold.co/400x200/007bff/FFFFFF?text=PC+VS+CONSOLA", 
+        type: "news" 
+    },
+    { 
+        id: 7, 
+        title: "Diferencias entre teclados mecánicos y de membrana", 
+        date: "13 Jun, 2024", 
+        summary: "Descubre el tipo de teclado que mejor se adapta a tu estilo de juego y comodidad.", 
+        imageSrc: "https://placehold.co/400x200/000000/FFFFFF?text=TECLADOS+GAMER", 
+        type: "news" 
+    },
+    { 
+        id: 8, 
+        title: "Diferencias de rendimiento entre Ryzen y Core i9", 
+        date: "17 Jun, 2024", 
+        summary: "Una mirada a la última generación de CPUs para ver cuál te ofrece el mejor rendimiento.", 
+        imageSrc: "https://placehold.co/400x200/900000/FFFFFF?text=AMD+VS+INTEL", 
+        type: "news" 
+    },
+    { 
+        id: 9, 
+        title: "Comparación de memorias SSD NVMe Gen 4 vs Gen 5", 
+        date: "21 Jun, 2024", 
+        summary: "Mejora la velocidad de carga de tus juegos y programas con las últimas SSDs.", 
+        imageSrc: "https://placehold.co/400x200/003366/FFFFFF?text=NVMe+SSD", 
+        type: "news" 
+    },
+
     { 
         id: 4, 
         title: "¡Descuento del 15% en PCs Gamers Armados!", 
         date: "", 
-        summary: "Aprovecha esta oportunidad para potenciar...", 
-        imageSrc: "https://placehold.co/400x200/FF0000/FFFFFF?text=PROMO+15%25", 
+        summary: "Aprovecha esta oportunidad para potenciar tu experiencia de juego con PCs listos para usar.", 
+        imageSrc: "https://placehold.co/400x200/FF0000/FFFFFF?text=PROMO+PC+15%25", 
         type: "promotion" 
     },
+    { 
+        id: 10, 
+        title: "Lanzamiento: Nuevo Teclado Mecánico RGB", 
+        date: "", 
+        summary: "Conoce nuestro nuevo teclado con switches y personalización RGB de alto nivel.", 
+        imageSrc: "https://placehold.co/400x200/AA55FF/FFFFFF?text=TECLADO+LANZAMIENTO", 
+        type: "promotion" 
+    },
+
     { 
         id: 5, 
         title: "AMD Ryzen 9 7950X3D: El rey de los videojuegos", 
         date: "17 Jun, 2024", 
-        summary: "Conoce por qué este procesador es el más buscado...", 
-        imageSrc: "https://placehold.co/400x200/007bff/FFFFFF?text=BESTSELLER", 
+        summary: "Conoce por qué este procesador es el más buscado por los gamers de alto rendimiento.", 
+        imageSrc: "https://placehold.co/400x200/FF5733/FFFFFF?text=Ryzen+9", 
         type: "bestseller" 
     },
     { 
+        id: 11, 
+        title: "NVIDIA RTX 4070 Ti: Calidad-precio insuperable", 
+        date: "20 Jun, 2024", 
+        summary: "Una tarjeta gráfica que puedes usar en cualquier tipo de juego, rendimiento garantizado.", 
+        imageSrc: "https://placehold.co/400x200/00AA77/FFFFFF?text=RTX+4070+Ti", 
+        type: "bestseller" 
+    },
+
+    { 
         id: 6, 
-        title: "¿PC o consola? Comparación para el gamer moderno", 
-        date: "12 Jun, 2024", 
-        summary: "Un debate eterno: analizamos pros y contras para ayudarte a elegir tu plataforma ideal...", 
-        imageSrc: "https://placehold.co/400x200/000000/FFFFFF?text=GUIA+PC", 
+        title: "Guía completa para armar tu primer PC Gamer", 
+        date: "10 Jun, 2024", 
+        summary: "Paso a paso, te enseñamos a elegir los componentes y ensamblar tu máquina de ensueño.", 
+        imageSrc: "https://placehold.co/400x200/00AAFF/FFFFFF?text=GUIA+PC+ARMADO", 
+        type: "guide" 
+    },
+    { 
+        id: 12, 
+        title: "Todo sobre la refrigeración líquida cEDE para tu PC", 
+        date: "05 Jun, 2024", 
+        summary: "Ventajas, desventajas y cómo instalarla correctamente para mantener baja la temperatura.", 
+        imageSrc: "https://placehold.co/400x200/999999/FFFFFF?text=REFRIGERACION", 
         type: "guide" 
     },
 ];
@@ -59,16 +126,16 @@ const BlogGridSection = ({ title, articles }) => {
 };
 
 function BlogPage() {
-    const recentArticles = getArticlesByCategory('news');
+    const news = getArticlesByCategory('news');
     const promotions = getArticlesByCategory('promotion');
     const bestsellers = getArticlesByCategory('bestseller'); 
     const guides = getArticlesByCategory('guide');
 
     return (
         <Container className="blog-page mt-4">
-            <h1 className="mb-4">Blog & Noticias Recientes</h1>
+            <h1>Blog & Noticias Recientes</h1>
             
-            <BlogGridSection title="Noticias y Actualizaciones" articles={recentArticles} />
+            <BlogGridSection title="Noticias y Actualizaciones" articles={news} />
             <BlogGridSection title="Novedades y Promociones" articles={promotions} />
             <BlogGridSection title="Artículos Más Vendidos" articles={bestsellers} />
             <BlogGridSection title="Guías y Tutoriales" articles={guides} />
