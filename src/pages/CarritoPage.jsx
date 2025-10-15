@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Carrito from '../components/carrito'; 
+import Carrito from '../components/carrito';
 
 const getCartFromLocalStorage = () => {
     try {
