@@ -1,29 +1,75 @@
+/* --- VARIABLES --- */
+:root {
+    /* Fondo principal y tarjetas */
+    --background-color: #121212;
+    --card-bg-color: #1e1e1e;
+    
+    /* Color Neón Principal (Azul Ciberpunk - Noticias Fila 1) */
+    --primary-neon: #00FFFF;
+    --primary-neon-dark: #009999;
+
+    /* Color Neón Secundario (Verde Neón - Noticias Fila 2) */
+    --secondary-neon: #39FF14;
+    --secondary-neon-dark: #2BB80F;
+    
+    /* Color de Promoción (Naranja/Rojo Vivo) */
+    --promotion-color: #FF4500;
+    
+    /* Color de Bestseller (Morado/Magenta) */
+    --bestseller-color: #FF00FF; 
+    --bestseller-color-dark: #CC00CC;
+
+    /* Color de Guía (Dorado) */
+    --guide-color: #FFD700;
+}
+
+/* --- ESTILOS GLOBALES --- */
+body {
+    background-color: var(--background-color);
+    color: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Estilo para el contenedor principal */
 .blog-page {
-    padding-top: 20px;
+    padding-top: 40px;
     padding-bottom: 50px;
+}
+
+/* --- TÍTULOS DE SECCIÓN (H1, H2) --- */
+.blog-page h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin-bottom: 30px;
+    border-bottom: 4px solid var(--primary-neon);
+    display: inline-block;
+    padding-bottom: 5px;
 }
 
 .section-title {
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 25px;
-    color: #333;
-    border-bottom: 3px solid #007bff;
+    color: var(--primary-neon); /* Títulos de sección en Neón Azul */
+    border-bottom: 3px solid var(--primary-neon);
     display: inline-block;
     padding-bottom: 5px;
 }
 
+/* --- ESTILOS DE TARJETAS BASE --- */
 .card {
-    border: none;
+    background-color: var(--card-bg-color);
+    color: #FFFFFF;
+    border: 1px solid #333;
     border-radius: 12px;
     transition: transform 0.3s, box-shadow 0.3s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     height: 100%;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px var(--primary-neon); /* Sombra Neón al hacer hover */
 }
 
 .card-img-top {
@@ -36,57 +82,110 @@
 .card-title {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #007bff;
+    color: var(--primary-neon); /* Títulos de artículo en Neón Azul (por defecto) */
     margin-top: 10px;
 }
 
 .card-subtitle {
     font-size: 0.85rem;
-    color: #6c757d !important;
+    color: #888888 !important; /* Gris suave para la fecha */
     margin-bottom: 8px;
 }
 
 .card-text {
     font-size: 0.95rem;
-    color: #495057;
+    color: #DDDDDD; /* Texto de resumen en gris claro */
 }
 
+/* --- BOTONES BASE (Noticias - Fila 1) --- */
 .read-more-btn {
-    background-color: #007bff;
-    border-color: #007bff;
-    transition: background-color 0.2s;
+    background-color: var(--primary-neon);
+    border-color: var(--primary-neon);
+    color: var(--background-color) !important; /* Texto negro para contraste */
+    font-weight: bold;
+    transition: all 0.2s;
     margin-top: 15px;
+    border-radius: 8px;
 }
 
 .read-more-btn:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
+    background-color: var(--primary-neon-dark);
+    border-color: var(--primary-neon-dark);
+    box-shadow: 0 0 10px var(--primary-neon);
 }
 
+/* ========================================================= */
+/* --- REGLA ESPECÍFICA PARA LA SEGUNDA FILA DE NOTICIAS --- */
+/* (Artículos 4, 5, y 6 en la sección .news) */
+/* ========================================================= */
+
+/* Apunta a los artículos 4, 5, y 6 (segunda fila) */
+.news .col:nth-child(4) .card-title,
+.news .col:nth-child(5) .card-title,
+.news .col:nth-child(6) .card-title {
+    color: var(--secondary-neon) !important; /* ¡VERDE NEÓN! */
+}
+
+.news .col:nth-child(4) .read-more-btn,
+.news .col:nth-child(5) .read-more-btn,
+.news .col:nth-child(6) .read-more-btn {
+    background-color: var(--secondary-neon) !important;
+    border-color: var(--secondary-neon) !important;
+}
+
+.news .col:nth-child(4) .read-more-btn:hover,
+.news .col:nth-child(5) .read-more-btn:hover,
+.news .col:nth-child(6) .read-more-btn:hover {
+    background-color: var(--secondary-neon-dark) !important;
+    border-color: var(--secondary-neon-dark) !important;
+    box-shadow: 0 0 10px var(--secondary-neon) !important;
+}
+
+
+/* --- ESTILOS ESPECÍFICOS POR TIPO --- */
+
+/* Promociones (Naranja/Rojo) */
 .promotion .card-title {
-    color: #28a745;
+    color: var(--promotion-color);
 }
 
 .promotion .read-more-btn {
-    background-color: #28a745;
-    border-color: #28a745;
+    background-color: var(--promotion-color);
+    border-color: var(--promotion-color);
 }
 
 .promotion .read-more-btn:hover {
-    background-color: #1e7e34;
-    border-color: #1e7e34;
+    background-color: #CC3700;
+    border-color: #CC3700;
 }
 
+/* Bestseller (Morado/Magenta) */
+.bestseller .card-title {
+    color: var(--bestseller-color);
+}
+
+.bestseller .read-more-btn {
+    background-color: var(--bestseller-color);
+    border-color: var(--bestseller-color);
+}
+
+.bestseller .read-more-btn:hover {
+    background-color: var(--bestseller-color-dark);
+    border-color: var(--bestseller-color-dark);
+}
+
+/* Guías (Dorado) */
 .guide .card-title {
-    color: #ffc107;
+    color: var(--guide-color);
 }
 
 .guide .read-more-btn {
-    background-color: #ffc107;
-    border-color: #ffc107;
+    background-color: var(--guide-color);
+    border-color: var(--guide-color);
+    color: #121212 !important; /* Texto oscuro para contraste */
 }
 
 .guide .read-more-btn:hover {
-    background-color: #e0a800;
-    border-color: #e0a800;
+    background-color: #CCA800;
+    border-color: #CCA800;
 }
