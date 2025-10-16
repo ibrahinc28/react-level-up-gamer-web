@@ -1,12 +1,16 @@
 :root {
-    --neon-primary: #00ffc4;
-    --neon-secondary: #ff007f;
-    --bg-dark: #121212;
-    --text-light: #e0e0e0;
-    --text-warning: #ffd700; 
-    --bg-navbar-blue: #1D2A3A; /* Tono de azul oscuro un poco más visible, basado en la imagen */
+    --neon-primary: #00ffc4; /* Teal brillante */
+    --neon-secondary: #ff007f; /* Magenta/Rosa Neón */
+    --bg-dark: #121212; /* Fondo casi negro */
+    --text-light: #e0e0e0; /* Texto claro */
+    --text-warning: #ffd700; /* Dorado para advertencias */
+    --bg-navbar-blue: #000000; /* Lo establecemos en negro puro */
+    --bg-card: #222222; /* Fondo de tarjetas */
 }
 
+/* -------------------------------------------------------------------
+ * Estilos Base
+ * ------------------------------------------------------------------- */
 html, body, #root {
     background-color: var(--bg-dark);
     color: var(--text-light);
@@ -16,63 +20,114 @@ html, body, #root {
     padding: 0;
 }
 
-/* --- AJUSTES EN EL HEADER (NAVBAR) --- */
-header {
-    background-color: var(--bg-navbar-blue);
+/* -------------------------------------------------------------------
+ * Navbar Fixes y Estilos Neón
+ * ------------------------------------------------------------------- */
+.navbar {
+    background-color: var(--bg-navbar-blue) !important; /* Forzar el color de fondo a negro */
     border-bottom: 2px solid var(--neon-secondary); 
-    border-top: none; 
-    padding: 10px 40px; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
-    
-    /* CAMBIOS CLAVE: Asegura la alineación horizontal y que empiecen al inicio */
-    display: flex;
-    align-items: center; /* Centra verticalmente */
-    justify-content: flex-start; /* Asegura que los elementos se peguen a la izquierda */
-    gap: 30px; 
+    /* AJUSTE CLAVE 1: Más padding vertical para que quepa el logo de 80px */
+    padding-top: 10px !important; 
+    padding-bottom: 10px !important; 
+    width: 100%; 
 }
 
-/* Contenedor de los enlaces: IMPERATIVO para que los links se pongan en fila. */
-.nav-links {
-    display: flex; /* Fuerza a los hijos a alinearse horizontalmente */
-    align-items: center; /* Centra los links en su propia fila */
-    padding: 0;
-    margin: 0;
-    list-style: none; /* Si usas una lista (ul) */
+/* CONTENEDOR GLOBAL: Asegura que todo esté en modo Flex y CENTRADO verticalmente */
+.container-fluid, .container {
+    display: flex !important;
+    align-items: center; /* Alineación vertical central para todo el contenido */
+    width: 100%;
+    padding: 0 15px; 
+    flex-wrap: nowrap !important;
 }
 
-
+/* SOLUCIÓN AL GUION BAJO Y ALINEACIÓN DEL LOGO */
 .navbar-brand {
-    font-size: 2.0em; 
-    margin-right: 40px; 
+    /* 1. ELIMINAR TEXTO RESIDUAL (el guion bajo) */
+    font-size: 0 !important; 
+    line-height: 0 !important; /* Fuerza la altura de línea a cero */
+    height: 80px; /* Le damos la altura del logo al contenedor para evitar colapsos */
+    padding: 0;
+    margin-right: 20px !important; /* Espacio entre logo y menú */
+    
+    /* Muy importante para contener la imagen y que no afecte la línea de base */
+    display: inline-block !important; 
+    vertical-align: middle !important;
+    overflow: hidden; /* Oculta cualquier contenido que se salga */
 }
 
-/* REDUCCIÓN DE TAMAÑO DEL LOGO */
-.logo-image {
-    height: 50px; 
+/* Regla para la imagen o SVG dentro del navbar-brand (tu logo) */
+.navbar-brand img, .navbar-brand svg { 
+    height: 80px; /* Mantenemos el tamaño del logo */
     width: auto;
     filter: drop-shadow(0 0 5px var(--neon-primary));
-    /* Aseguramos que no haya margen inferior que lo empuje */
-    margin-bottom: 0; 
+    /* Reseteamos márgenes y paddings internos */
+    margin: 0 !important;
+    padding: 0 !important;
+    /* CLAVE: Lo forzamos a ser un bloque para que respete el line-height y el size de 80px */
+    display: block !important; 
 }
 
-/* --- AJUSTES EN LOS ENLACES DE NAVEGACIÓN --- */
+
+/* CONTENEDOR DE ENLACES: Asegura que el menú se estire y se alinee correctamente */
+.navbar-collapse {
+    /* Permite que los elementos hijos (Navs) hereden el flex del .container */
+    display: contents !important; 
+    flex-grow: 1 !important;
+    width: auto !important; 
+    flex-basis: auto; 
+    overflow: visible;
+}
+
+/* Ajustes a las listas de navegación (me-auto y navbar-nav) */
+.navbar-collapse .me-auto, .navbar-collapse .navbar-nav {
+    display: flex; 
+    align-items: center; /* Alineación vertical de los enlaces con el logo */
+    margin: 0 !important; 
+    padding: 0 !important;
+}
+
+/* --- Estilos de Enlaces de Navegación --- */
 .nav-link {
     color: var(--text-light) !important;
     font-weight: 500;
     transition: all 0.3s ease;
     font-size: 1.1em;
-    padding: 8px 16px !important;
+    padding: 10px 16px !important; /* Ajuste del padding para centrar verticalmente */
+    display: flex; 
+    align-items: center; 
+    margin-right: 10px;
 }
 
+/* Hover effect */
 .nav-link:hover, .nav-link.active {
     color: var(--neon-primary) !important;
     text-shadow: 0 0 5px var(--neon-primary);
     transform: translateY(-2px);
 }
 
+/* Estilo para los iconos SVG dentro de los enlaces */
+.nav-link svg {
+    width: 20px !important;
+    height: 20px !important;
+    margin-right: 8px !important;
+}
 
-/* --- ESTILOS NEÓN Y BOTONES (RESTO DEL CÓDIGO) --- */
 
+/* -------------------------------------------------------------------
+ * Estilos Generales de Contenedores y Elementos (Mantenidos)
+ * ------------------------------------------------------------------- */
+.card-neon {
+    background-color: var(--bg-card);
+    border: 1px solid rgba(0, 255, 196, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0, 255, 196, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* --- Efectos de Brillo Neón --- */
 .neon-glow-text-secondary {
     color: var(--neon-secondary);
     text-shadow: 
@@ -88,7 +143,9 @@ header {
         0 0 20px rgba(0, 255, 196, 0.8);
 }
 
-.btn-default, .btn-neon-action, .btn-disabled {
+/* --- Estilos de Botones --- */
+
+.btn-default, .btn-neon-action, .btn-disabled, .btn-quantity {
     cursor: pointer;
     font-weight: bold;
     border-radius: 8px;
@@ -96,15 +153,30 @@ header {
     transition: all 0.3s ease;
     border: none;
     font-size: 1em; 
+    text-transform: uppercase;
+    box-shadow: none;
 }
 
+/* Botón de acción principal (Finalizar Compra) */
+.btn-neon-action {
+    background-color: var(--neon-secondary);
+    color: var(--bg-dark);
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+}
+
+.btn-neon-action:hover {
+    background-color: #ff3399;
+    box-shadow: 0 0 20px var(--neon-secondary), 0 0 30px rgba(255, 0, 127, 0.8);
+    transform: scale(1.02);
+}
+
+/* Botón secundario (Vaciar Carrito, Continuar Comprando) */
 .btn-default {
     background-color: rgba(51, 51, 51, 0.6);
     color: var(--text-light);
     border: 1px solid var(--neon-primary);
     padding: 8px 16px;
-    border-radius: 4px;
-    transition: all 0.2s;
+    border-radius: 6px;
     box-shadow: 0 0 5px rgba(0, 255, 196, 0.3);
 }
 
@@ -115,25 +187,27 @@ header {
     box-shadow: 0 0 12px var(--neon-primary);
 }
 
-.btn-neon-action {
-    background-color: var(--neon-secondary);
+/* Botones de cantidad (+/-) */
+.btn-quantity {
+    background-color: rgba(0, 255, 196, 0.2);
+    color: var(--neon-primary);
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    border-radius: 4px;
+    font-size: 1.2em;
+    line-height: 1;
+    margin: 0 4px;
+    border: 1px solid var(--neon-primary);
+}
+
+.btn-quantity:hover:not(:disabled) {
+    background-color: var(--neon-primary);
     color: var(--bg-dark);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 700;
-    text-transform: uppercase;
-    box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
-    transition: all 0.3s ease;
 }
 
-.btn-neon-action:hover {
-    background-color: #ff3399;
-    box-shadow: 0 0 20px var(--neon-secondary), 0 0 30px rgba(255, 0, 127, 0.8);
-    transform: scale(1.05);
-}
-
-.btn-disabled {
+/* Botón deshabilitado */
+.btn-disabled, .btn-quantity:disabled {
     background-color: rgba(40, 40, 40, 0.8) !important;
     color: rgba(255, 255, 255, 0.4) !important;
     cursor: not-allowed !important;
@@ -142,8 +216,54 @@ header {
     opacity: 0.8;
 }
 
-.btn-disabled:hover {
-    background-color: rgba(40, 40, 40, 0.8) !important; 
-    box-shadow: 0 0 5px rgba(0, 255, 196, 0.1) !important;
+.btn-disabled:hover, .btn-quantity:disabled:hover {
     transform: none !important;
+}
+
+/* --- Estilos de Mensajes de Compra --- */
+.purchase-message {
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.purchase-message.success {
+    background-color: rgba(0, 255, 196, 0.15);
+    border: 1px solid var(--neon-primary);
+    color: var(--neon-primary);
+}
+
+.purchase-message.error {
+    background-color: rgba(255, 0, 127, 0.15);
+    border: 1px solid var(--neon-secondary);
+    color: var(--neon-secondary);
+}
+
+/* --- Responsive Layout (Ajustes Adicionales para la Navbar en móvil) --- */
+
+@media (max-width: 991px) {
+    /* En móvil, la Navbar-Collapse debe volver a su comportamiento normal */
+    .navbar-collapse {
+        display: block !important; 
+        width: 100%; 
+        background-color: #1a1a1a;
+        padding: 10px;
+        margin-left: 0 !important;
+        border-top: 1px solid var(--neon-primary);
+    }
+    .container-fluid, .container {
+        flex-wrap: wrap !important;
+    }
+    
+    .navbar-collapse .me-auto {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .nav-link {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 5px;
+    }
 }
