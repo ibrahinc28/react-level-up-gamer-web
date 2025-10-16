@@ -3,35 +3,65 @@
     --neon-secondary: #ff007f;
     --bg-dark: #121212;
     --text-light: #e0e0e0;
+    --text-warning: #ffd700; 
+    --bg-navbar-blue: #1D2A3A; /* Tono de azul oscuro un poco más visible, basado en la imagen */
 }
 
 html, body, #root {
     background-color: var(--bg-dark);
     color: var(--text-light);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', sans-serif; 
     min-height: 100vh;
     margin: 0;
     padding: 0;
 }
 
+/* --- AJUSTES EN EL HEADER (NAVBAR) --- */
 header {
-    background-color: #000000;
-    border-bottom: 3px solid var(--neon-secondary);
-    box-shadow: 0 5px 20px rgba(255, 0, 127, 0.3);
-    padding: 30px 60px;
+    background-color: var(--bg-navbar-blue);
+    border-bottom: 2px solid var(--neon-secondary); 
+    border-top: none; 
+    padding: 10px 40px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
+    
+    /* CAMBIOS CLAVE: Asegura la alineación horizontal y que empiecen al inicio */
     display: flex;
-    align-items: center; 
+    align-items: center; /* Centra verticalmente */
+    justify-content: flex-start; /* Asegura que los elementos se peguen a la izquierda */
+    gap: 30px; 
 }
+
+/* Contenedor de los enlaces: IMPERATIVO para que los links se pongan en fila. */
+.nav-links {
+    display: flex; /* Fuerza a los hijos a alinearse horizontalmente */
+    align-items: center; /* Centra los links en su propia fila */
+    padding: 0;
+    margin: 0;
+    list-style: none; /* Si usas una lista (ul) */
+}
+
+
 .navbar-brand {
-    font-size: 2.8em; 
+    font-size: 2.0em; 
     margin-right: 40px; 
 }
+
+/* REDUCCIÓN DE TAMAÑO DEL LOGO */
+.logo-image {
+    height: 50px; 
+    width: auto;
+    filter: drop-shadow(0 0 5px var(--neon-primary));
+    /* Aseguramos que no haya margen inferior que lo empuje */
+    margin-bottom: 0; 
+}
+
+/* --- AJUSTES EN LOS ENLACES DE NAVEGACIÓN --- */
 .nav-link {
     color: var(--text-light) !important;
     font-weight: 500;
     transition: all 0.3s ease;
-    font-size: 1.4em;
-    padding: 15px 22px !important;
+    font-size: 1.1em;
+    padding: 8px 16px !important;
 }
 
 .nav-link:hover, .nav-link.active {
@@ -39,11 +69,9 @@ header {
     text-shadow: 0 0 5px var(--neon-primary);
     transform: translateY(-2px);
 }
-.logo-image {
-    height: 85px;
-    width: auto;
-    filter: drop-shadow(0 0 5px var(--neon-primary));
-}
+
+
+/* --- ESTILOS NEÓN Y BOTONES (RESTO DEL CÓDIGO) --- */
 
 .neon-glow-text-secondary {
     color: var(--neon-secondary);
