@@ -1,6 +1,5 @@
 import React from 'react';
 
-// --- Sub-Componente para la Fila del Producto ---
 const CartRow = ({ item, removeItem, updateQuantity }) => {
     
     const itemSubtotal = item.price * item.quantity;
@@ -71,7 +70,6 @@ const CartRow = ({ item, removeItem, updateQuantity }) => {
         </div>
     );
 };
-// --- Fin del Sub-Componente ---
 
 
 const Carrito = ({
@@ -86,9 +84,7 @@ const Carrito = ({
     purchaseMessage,
 }) => {
     
-    // Función de utilidad para formatear los precios y la moneda
     const formatPriceWithCurrency = (price) => {
-        // Envolvemos el valor en un span con whiteSpace: 'nowrap' para prevenir saltos de línea dentro del valor del monto
         return (
             <span style={{ whiteSpace: 'nowrap' }}>
                 {price.toLocaleString('es-CL')} CLP
@@ -156,17 +152,14 @@ const Carrito = ({
 
             <div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '2px solid #333' }}>
 
-                {/* CONTENEDOR PRINCIPAL: Alineado a la derecha */}
                 <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                     <div style={{ width: '100%', maxWidth: '450px', marginBottom: '32px' }}>
                         
-                        {/* Fila Subtotal */}
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.5em', marginBottom: '10px' }}>
                             <span>Subtotal:</span>
                             <span style={{ fontWeight: 'bold', marginLeft: '16px' }}>${formatPriceWithCurrency(subtotal)}</span>
                         </div>
 
-                        {/* Fila Envío */}
                         {cartIsEmpty ? (
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.5em', color: '#666', marginBottom: '10px' }}> 
                                 <span>Envío:</span>
@@ -179,10 +172,8 @@ const Carrito = ({
                             </div>
                         )}
                         
-                        {/* Divisor */}
                         <div style={{ width: '100%', height: '2px', backgroundColor: 'var(--neon-secondary)', margin: '16px 0' }}></div>
                         
-                        {/* Fila Total a Pagar: CORRECCIÓN APLICADA AQUÍ */}
                         <div style={{ 
                                 display: 'flex', 
                                 justifyContent: 'space-between', 
@@ -191,15 +182,14 @@ const Carrito = ({
                                 fontWeight: '900', 
                                 color: 'var(--neon-primary)', 
                                 textShadow: '0 0 5px rgba(0, 255, 196, 0.4)',
-                                whiteSpace: 'nowrap' // <-- CORRECCIÓN: whiteSpace sin asteriscos
+                                whiteSpace: 'nowrap'
                             }}>
                             <span>Total a Pagar:</span>
-                            {/* Ajuste de estilo en línea para el valor del monto */}
                             <span style={{ 
                                 marginLeft: '8px', 
                                 textAlign: 'right', 
-                                fontSize: '0.8em', // <-- CORRECCIÓN: Reducimos el tamaño de fuente del valor al 80%
-                                fontWeight: 'bold' // CORRECCIÓN: Se mantiene negrita
+                                fontSize: '0.8em',
+                                fontWeight: 'bold'
                             }}>${formatPriceWithCurrency(displayTotalPagar)}</span>
                         </div>
 
