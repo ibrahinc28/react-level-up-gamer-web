@@ -1,5 +1,6 @@
 import React from 'react';
 
+// --- Sub-Componente para la Fila del Producto ---
 const CartRow = ({ item, removeItem, updateQuantity }) => {
     
     const itemSubtotal = item.price * item.quantity;
@@ -70,6 +71,8 @@ const CartRow = ({ item, removeItem, updateQuantity }) => {
         </div>
     );
 };
+// --- Fin del Sub-Componente ---
+
 
 const Carrito = ({
     cartItems,
@@ -82,6 +85,17 @@ const Carrito = ({
     updateQuantity,
     purchaseMessage,
 }) => {
+    
+    // Función de utilidad para formatear los precios y la moneda
+    const formatPriceWithCurrency = (price) => {
+        // Envolvemos el valor en un span con whiteSpace: 'nowrap' para prevenir saltos de línea dentro del valor del monto
+        return (
+            <span style={{ whiteSpace: 'nowrap' }}>
+                {price.toLocaleString('es-CL')} CLP
+            </span>
+        );
+    };
+
     const renderCartItems = () => {
         if (cartItems.length === 0) {
             return (
@@ -142,31 +156,56 @@ const Carrito = ({
 
             <div style={{ marginTop: '40px', paddingTop: '20px', borderTop: '2px solid #333' }}>
 
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', marginBottom: '32px', lineHeight: '1.6' }}>
-                    <div style={{ fontSize: '1.5em' }}>
-                        <span>Subtotal:</span>
-                        <span style={{ width: '150px', display: 'inline-block', textAlign: 'right', fontWeight: 'bold', marginLeft: '16px' }}>${subtotal.toLocaleString('es-CL')} CLP</span>
-                    </div>
+                {/* CONTENEDOR PRINCIPAL: Alineado a la derecha */}
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <div style={{ width: '100%', maxWidth: '450px', marginBottom: '32px' }}>
+                        
+                        {/* Fila Subtotal */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.5em', marginBottom: '10px' }}>
+                            <span>Subtotal:</span>
+                            <span style={{ fontWeight: 'bold', marginLeft: '16px' }}>${formatPriceWithCurrency(subtotal)}</span>
+                        </div>
 
-                    {cartIsEmpty ? (
-                        <div style={{ fontSize: '1.5em', color: '#666' }}> 
-                            <span>Envío:</span>
-                            <span style={{ width: '150px', display: 'inline-block', textAlign: 'right', fontWeight: 'bold', marginLeft: '16px' }}>$0 CLP</span>
+                        {/* Fila Envío */}
+                        {cartIsEmpty ? (
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.5em', color: '#666', marginBottom: '10px' }}> 
+                                <span>Envío:</span>
+                                <span style={{ fontWeight: 'bold', marginLeft: '16px' }}>$0 CLP</span>
+                            </div>
+                        ) : (
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '1.5em', marginBottom: '10px' }}> 
+                                <span>Envío:</span>
+                                <span style={{ fontWeight: 'bold', marginLeft: '16px' }}>${formatPriceWithCurrency(costoEnvio)}</span>
+                            </div>
+                        )}
+                        
+                        {/* Divisor */}
+                        <div style={{ width: '100%', height: '2px', backgroundColor: 'var(--neon-secondary)', margin: '16px 0' }}></div>
+                        
+                        {/* Fila Total a Pagar: CORRECCIÓN APLICADA AQUÍ */}
+                        <div style={{ 
+                                display: 'flex', 
+                                justifyContent: 'space-between', 
+                                alignItems: 'center', 
+                                fontSize: '2em', 
+                                fontWeight: '900', 
+                                color: 'var(--neon-primary)', 
+                                textShadow: '0 0 5px rgba(0, 255, 196, 0.4)',
+                                whiteSpace: 'nowrap' // <-- CORRECCIÓN: whiteSpace sin asteriscos
+                            }}>
+                            <span>Total a Pagar:</span>
+                            {/* Ajuste de estilo en línea para el valor del monto */}
+                            <span style={{ 
+                                marginLeft: '8px', 
+                                textAlign: 'right', 
+                                fontSize: '0.8em', // <-- CORRECCIÓN: Reducimos el tamaño de fuente del valor al 80%
+                                fontWeight: 'bold' // CORRECCIÓN: Se mantiene negrita
+                            }}>${formatPriceWithCurrency(displayTotalPagar)}</span>
                         </div>
-                    ) : (
-                        <div style={{ fontSize: '1.5em' }}> 
-                            <span>Envío:</span>
-                            <span style={{ width: '150px', display: 'inline-block', textAlign: 'right', fontWeight: 'bold', marginLeft: '16px' }}>${costoEnvio.toLocaleString('es-CL')} CLP</span>
-                        </div>
-                    )}
-                    
-                    <div style={{ width: '100%', height: '2px', backgroundColor: 'var(--neon-secondary)', margin: '16px 0' }}></div>
-                    
-                    <div style={{ fontSize: '2.5em', fontWeight: '900', color: 'var(--neon-primary)', textShadow: '0 0 5px rgba(0, 255, 196, 0.4)' }}>
-                        <span>Total a Pagar:</span>
-                        <span style={{ width: '150px', display: 'inline-block', textAlign: 'right', marginLeft: '16px' }}>${displayTotalPagar.toLocaleString('es-CL')} CLP</span>
+
                     </div>
                 </div>
+
 
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
                     <div style={{ display: 'flex', gap: '24px' }}> 
