@@ -98,6 +98,8 @@ html, body, #root {
     display: flex; 
     align-items: center; 
     margin-right: 10px;
+    /* FIX: Eliminar el subrayado */
+    text-decoration: none !important;
 }
 
 /* Hover effect */
@@ -105,6 +107,8 @@ html, body, #root {
     color: var(--neon-primary) !important;
     text-shadow: 0 0 5px var(--neon-primary);
     transform: translateY(-2px);
+    /* Si quisieras que el subrayado aparezca solo al hacer hover, lo añadirías aquí */
+    /* text-decoration: underline; */ 
 }
 
 /* Estilo para los iconos SVG dentro de los enlaces */
@@ -116,7 +120,7 @@ html, body, #root {
 
 
 /* -------------------------------------------------------------------
- * Estilos Generales de Contenedores y Elementos (Mantenidos)
+ * Estilos Generales de Contenedores y Elementos
  * ------------------------------------------------------------------- */
 .card-neon {
     background-color: var(--bg-card);
@@ -196,7 +200,11 @@ html, body, #root {
     padding: 0;
     border-radius: 4px;
     font-size: 1.2em;
-    line-height: 1;
+    /* FIX: Usar flexbox para centrar el texto correctamente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1; 
     margin: 0 4px;
     border: 1px solid var(--neon-primary);
 }
