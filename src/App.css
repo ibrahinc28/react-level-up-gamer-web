@@ -1,8 +1,10 @@
-/* --- VARIABLES --- */
 :root {
     /* Fondo principal y tarjetas */
     --background-color: #121212;
     --card-bg-color: #1e1e1e;
+    
+    /* Color Navbar (Azul Oscuro para contraste) */
+    --navbar-bg-color: #0D1C2A; /* Tono azul marino oscuro, más saturado que antes */
     
     /* Color Neón Principal (Azul Ciberpunk - Noticias Fila 1) */
     --primary-neon: #00FFFF;
@@ -28,6 +30,33 @@ body {
     background-color: var(--background-color);
     color: #FFFFFF;
     font-family: 'Inter', sans-serif;
+}
+
+/* --- ESTILOS DE NAVBAR (Añadidos/Modificados) --- */
+.navbar {
+    background-color: var(--navbar-bg-color) !important; /* Nuevo fondo azul oscuro */
+    border-bottom: 3px solid var(--primary-neon); /* Borde neón azul para efecto ciberpunk */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.2); /* Sutil sombra neón */
+}
+
+/* Estilo para los enlaces de navegación */
+.navbar .nav-link {
+    color: #DDDDDD !important;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.navbar .nav-link:hover {
+    color: var(--primary-neon) !important; /* El enlace se ilumina al pasar el ratón */
+}
+
+/* Estilo para el enlace activo (similar a la imagen del Carrito) */
+.navbar .nav-link.active {
+    color: var(--bestseller-color) !important; /* Usamos Magenta/Morado para el enlace activo */
+    border-bottom: 2px solid var(--bestseller-color);
+    padding-bottom: 5px;
 }
 
 /* Estilo para el contenedor principal */
@@ -114,28 +143,17 @@ body {
     box-shadow: 0 0 10px var(--primary-neon);
 }
 
-/* ========================================================= */
 /* --- REGLA ESPECÍFICA PARA LA SEGUNDA FILA DE NOTICIAS --- */
-/* (Artículos 4, 5, y 6 en la sección .news) */
-/* ========================================================= */
-
-/* Apunta a los artículos 4, 5, y 6 (segunda fila) */
-.news .col:nth-child(4) .card-title,
-.news .col:nth-child(5) .card-title,
-.news .col:nth-child(6) .card-title {
-    color: var(--secondary-neon) !important; /* ¡VERDE NEÓN! */
+.news .col:nth-child(n+4) .card-title {
+    color: var(--secondary-neon) !important;
 }
 
-.news .col:nth-child(4) .read-more-btn,
-.news .col:nth-child(5) .read-more-btn,
-.news .col:nth-child(6) .read-more-btn {
+.news .col:nth-child(n+4) .read-more-btn {
     background-color: var(--secondary-neon) !important;
     border-color: var(--secondary-neon) !important;
 }
 
-.news .col:nth-child(4) .read-more-btn:hover,
-.news .col:nth-child(5) .read-more-btn:hover,
-.news .col:nth-child(6) .read-more-btn:hover {
+.news .col:nth-child(n+4) .read-more-btn:hover {
     background-color: var(--secondary-neon-dark) !important;
     border-color: var(--secondary-neon-dark) !important;
     box-shadow: 0 0 10px var(--secondary-neon) !important;
