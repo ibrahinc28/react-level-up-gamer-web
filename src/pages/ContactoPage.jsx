@@ -76,8 +76,8 @@ function ContactoPage() {
     ];
 
     return (
-        <Container className="my-5 p-4 neon-border-box">
-            <h1 className="text-center neon-text mb-4">Contáctanos - Soporte Rápido</h1>
+        <Container className="my-5 p-4 **border-box**">
+            <h1 className="text-center **highlight-text** mb-4">Contáctanos - Soporte Rápido</h1>
             <p className="text-center text-light mb-5">
                 ¿Tienes preguntas sobre un pedido, una consola o un juego retro? Nuestro equipo de soporte está listo.
             </p>
@@ -85,9 +85,9 @@ function ContactoPage() {
             <Row className="justify-content-center">
                 
                 <Col lg={5} className="mb-4">
-                    <h2 className="neon-text-secondary mb-4">Nuestra Información</h2>
+                    <h2 className="**text-secondary** mb-4">Nuestra Información</h2>
                     {contactInfo.map((item, index) => (
-                        <Card key={index} className="bg-dark text-light border-neon-secondary mb-3 p-3">
+                        <Card key={index} className="bg-dark text-light **border-secondary** mb-3 p-3">
                             <div className="d-flex align-items-center">
                                 <span style={{ fontSize: '1.5rem', marginRight: '1rem' }}>{item.icon}</span>
                                 <div>
@@ -98,7 +98,7 @@ function ContactoPage() {
                         </Card>
                     ))}
 
-                    <h2 className="neon-text-secondary mt-5 mb-3">Síguenos</h2>
+                    <h2 className="**text-secondary** mt-5 mb-3">Síguenos</h2>
                     <div className="d-flex social-icons">
                         
                         <span className="social-icon">📘 Facebook</span>
@@ -111,9 +111,9 @@ function ContactoPage() {
                 </Col>
 
                 <Col lg={7}>
-                    <Card className="bg-dark text-light border-neon-primary p-4 shadow-lg">
+                    <Card className="bg-dark text-light **border-primary** p-4 shadow-lg">
                         <Card.Body>
-                            <Card.Title className="neon-text-primary mb-4">Envíanos un Mensaje</Card.Title>
+                            <Card.Title className="**text-primary** mb-4">Envíanos un Mensaje</Card.Title>
                             <Form onSubmit={handleSubmit}>
 
                                 <Form.Group className="mb-3" controlId="formName">
@@ -125,7 +125,7 @@ function ContactoPage() {
                                         value={formData.name}
                                         onChange={handleChange}
                                         isInvalid={!!errors.name}
-                                        className="bg-gray-800 text-light border-neon-input"
+                                        /* Se removió la clase CSS no estándar del input */
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
                                 </Form.Group>
@@ -139,7 +139,7 @@ function ContactoPage() {
                                         value={formData.email}
                                         onChange={handleChange}
                                         isInvalid={!!errors.email}
-                                        className="bg-gray-800 text-light border-neon-input"
+                                        /* Se removió la clase CSS no estándar del input */
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
                                 </Form.Group>
@@ -153,7 +153,7 @@ function ContactoPage() {
                                         value={formData.subject}
                                         onChange={handleChange}
                                         isInvalid={!!errors.subject}
-                                        className="bg-gray-800 text-light border-neon-input"
+                                        /* Se removió la clase CSS no estándar del input */
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.subject}</Form.Control.Feedback>
                                 </Form.Group>
@@ -168,13 +168,13 @@ function ContactoPage() {
                                         value={formData.message}
                                         onChange={handleChange}
                                         isInvalid={!!errors.message}
-                                        className="bg-gray-800 text-light border-neon-input"
+                                        /* Se removió la clase CSS no estándar del input */
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
                                 </Form.Group>
 
                                 <div className="d-grid gap-2">
-                                    <Button variant="primary" type="submit" className="neon-button-primary">
+                                    <Button variant="primary" type="submit" className="**button-primary**">
                                         Enviar Mensaje
                                     </Button>
                                 </div>
