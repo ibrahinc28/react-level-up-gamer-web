@@ -1,47 +1,37 @@
 :root {
-    /* Fondo principal y tarjetas */
     --background-color: #121212;
     --card-bg-color: #1e1e1e;
     
-    /* Color Navbar (Azul Oscuro para contraste) */
-    --navbar-bg-color: #0D1C2A; /* Tono azul marino oscuro, más saturado que antes */
+    --navbar-bg-color: #0D1C2A;
     
-    /* Color Neón Principal (Azul Ciberpunk - Noticias Fila 1) */
     --primary-neon: #00FFFF;
     --primary-neon-dark: #009999;
 
-    /* Color Neón Secundario (Verde Neón - Noticias Fila 2) */
     --secondary-neon: #39FF14;
     --secondary-neon-dark: #2BB80F;
     
-    /* Color de Promoción (Naranja/Rojo Vivo) */
     --promotion-color: #FF4500;
     
-    /* Color de Bestseller (Morado/Magenta) */
     --bestseller-color: #FF00FF; 
     --bestseller-color-dark: #CC00CC;
 
-    /* Color de Guía (Dorado) */
     --guide-color: #FFD700;
 }
 
-/* --- ESTILOS GLOBALES --- */
 body {
     background-color: var(--background-color);
     color: #FFFFFF;
     font-family: 'Inter', sans-serif;
 }
 
-/* --- ESTILOS DE NAVBAR (Añadidos/Modificados) --- */
 .navbar {
-    background-color: var(--navbar-bg-color) !important; /* Nuevo fondo azul oscuro */
-    border-bottom: 3px solid var(--primary-neon); /* Borde neón azul para efecto ciberpunk */
+    background-color: var(--navbar-bg-color) !important;
+    border-bottom: 3px solid var(--primary-neon);
     padding-top: 10px;
     padding-bottom: 10px;
-    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.2); /* Sutil sombra neón */
+    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.2);
 }
 
-/* Estilo para los enlaces de navegación */
 .navbar .nav-link {
     color: #DDDDDD !important;
     font-weight: 500;
@@ -49,29 +39,26 @@ body {
 }
 
 .navbar .nav-link:hover {
-    color: var(--primary-neon) !important; /* El enlace se ilumina al pasar el ratón */
+    color: var(--primary-neon) !important;
 }
 
-/* Estilo para el enlace activo (similar a la imagen del Carrito) */
 .navbar .nav-link.active {
-    color: var(--bestseller-color) !important; /* Usamos Magenta/Morado para el enlace activo */
-    border-bottom: 2px solid var(--bestseller-color);
+    color: var(--primary-neon) !important; 
+    border-bottom: none;
     padding-bottom: 5px;
 }
 
-/* Estilo para el contenedor principal */
 .blog-page {
     padding-top: 40px;
     padding-bottom: 50px;
 }
 
-/* --- TÍTULOS DE SECCIÓN (H1, H2) --- */
 .blog-page h1 {
     font-size: 2.5rem;
     font-weight: 800;
     color: #FFFFFF;
     margin-bottom: 30px;
-    border-bottom: 4px solid var(--primary-neon);
+    border-bottom: none;
     display: inline-block;
     padding-bottom: 5px;
 }
@@ -80,13 +67,12 @@ body {
     font-size: 1.8rem;
     font-weight: 700;
     margin-bottom: 25px;
-    color: var(--primary-neon); /* Títulos de sección en Neón Azul */
-    border-bottom: 3px solid var(--primary-neon);
+    color: #FFFFFF;
+    border-bottom: none;
     display: inline-block;
     padding-bottom: 5px;
 }
 
-/* --- ESTILOS DE TARJETAS BASE --- */
 .card {
     background-color: var(--card-bg-color);
     color: #FFFFFF;
@@ -98,7 +84,7 @@ body {
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 15px var(--primary-neon); /* Sombra Neón al hacer hover */
+    box-shadow: 0 0 15px var(--primary-neon);
 }
 
 .card-img-top {
@@ -111,26 +97,25 @@ body {
 .card-title {
     font-size: 1.2rem;
     font-weight: 600;
-    color: var(--primary-neon); /* Títulos de artículo en Neón Azul (por defecto) */
+    color: var(--primary-neon);
     margin-top: 10px;
 }
 
 .card-subtitle {
     font-size: 0.85rem;
-    color: #888888 !important; /* Gris suave para la fecha */
+    color: #888888 !important;
     margin-bottom: 8px;
 }
 
 .card-text {
     font-size: 0.95rem;
-    color: #DDDDDD; /* Texto de resumen en gris claro */
+    color: #DDDDDD;
 }
 
-/* --- BOTONES BASE (Noticias - Fila 1) --- */
 .read-more-btn {
     background-color: var(--primary-neon);
     border-color: var(--primary-neon);
-    color: var(--background-color) !important; /* Texto negro para contraste */
+    color: var(--background-color) !important;
     font-weight: bold;
     transition: all 0.2s;
     margin-top: 15px;
@@ -143,7 +128,6 @@ body {
     box-shadow: 0 0 10px var(--primary-neon);
 }
 
-/* --- REGLA ESPECÍFICA PARA LA SEGUNDA FILA DE NOTICIAS --- */
 .news .col:nth-child(n+4) .card-title {
     color: var(--secondary-neon) !important;
 }
@@ -159,10 +143,6 @@ body {
     box-shadow: 0 0 10px var(--secondary-neon) !important;
 }
 
-
-/* --- ESTILOS ESPECÍFICOS POR TIPO --- */
-
-/* Promociones (Naranja/Rojo) */
 .promotion .card-title {
     color: var(--promotion-color);
 }
@@ -177,7 +157,6 @@ body {
     border-color: #CC3700;
 }
 
-/* Bestseller (Morado/Magenta) */
 .bestseller .card-title {
     color: var(--bestseller-color);
 }
@@ -192,7 +171,6 @@ body {
     border-color: var(--bestseller-color-dark);
 }
 
-/* Guías (Dorado) */
 .guide .card-title {
     color: var(--guide-color);
 }
@@ -200,7 +178,7 @@ body {
 .guide .read-more-btn {
     background-color: var(--guide-color);
     border-color: var(--guide-color);
-    color: #121212 !important; /* Texto oscuro para contraste */
+    color: #121212 !important;
 }
 
 .guide .read-more-btn:hover {
