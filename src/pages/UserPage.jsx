@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Image from 'react-bootstrap/Image';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Button from 'react-bootstrap/Button';
+import EditarUsuarioPagina from '../components/EditarUsuarioPagina';
 
 function UserPage() {
   return (
@@ -29,7 +29,7 @@ function UserPage() {
           <p style={{fontSize: 30, textAlign: 'left'}}>Usuario</p>
           <p style={{fontSize: 20, textAlign: 'left'}}>Registrado desde: 13 Octubre 2024</p>
           <p style={{fontSize: 20, textAlign: 'left'}}>Correo: pedrocontreras@gmail.com</p>
-          <Button variant="outline-secondary" style={{alignContent: 'left'}}>Editar</Button>
+          <EditarUsuarioPagina />
         </Col>
       </Row>
     </Container>

@@ -47,6 +47,7 @@ function LoginFormulario() {
                 Iniciar sesión
               </Button>
             </Form>
+            <p>¿No tiene una cuenta? Cree una cuenta <a href='/signup'>aquí.</a></p>
           </Col>
         </Row>
        </Container>

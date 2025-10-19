@@ -2,14 +2,16 @@ import React from 'react';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import Modal from 'react-bootstrap/Modal';
 import Col from 'react-bootstrap/Col';
-import { useNavigate } from 'react-router-dom';
 
-function RegistrarFormulario() {
+function EditarUsuarioPagina() {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);  
+  
     const [validated, setValidated] = useState(false);
-    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         const form = event.currentTarget;
@@ -17,19 +19,21 @@ function RegistrarFormulario() {
         event.preventDefault();
         event.stopPropagation();
         }
-        else {
-          navigate('/user');
-        }
 
         setValidated(true);
     };
   
     return (
     <div>
-       <Container>
-        <Row>
-          <p style={{fontSize: 35, fontWeight: 'bold', textAlign: 'left'}}>Registrarse</p>
-          <Col>
+      <Button variant="primary" onClick={handleShow}>
+        Editar
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar datos</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
               <Col>
                 <Form.Group className="mb-3" controlId="formBasicFirstName">
@@ -41,6 +45,10 @@ function RegistrarFormulario() {
                 <Form.Group className="mb-3" controlId="formBasicSecondName">
                   <Form.Label>Segundo Nombre</Form.Label>
                   <Form.Control type="text" placeholder="Segundo nombre"/>
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicThirdName">
+                  <Form.Label>Tercer Nombre</Form.Label>
+                  <Form.Control type="text" placeholder="Tercer nombre"/>
                 </Form.Group>
               </Col>
               <Col>
@@ -62,34 +70,21 @@ function RegistrarFormulario() {
                   <Form.Control type="email" placeholder="ejemplo@correo.com" required/>
                   <Form.Control.Feedback type='invalid'>El correo no es válido</Form.Control.Feedback>
                 </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Contraseña</Form.Label>
-                  <Form.Control type="password" placeholder="Contraseña" required/>
-                  <Form.Control.Feedback type='invalid'>Debe ingresar una contraseña</Form.Control.Feedback>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" style={{textAlign: 'left'}}>
-                  <Form.Check
-                    required
-                    label="Acepto los términos y condiciones"
-                    feedback="Debe aceptar los términos."
-                    feedbackType="invalid"
-                  />
-                </Form.Group>
-                <Button variant="primary" type="submit" style={{alignItems:'left'}} >
-                  Iniciar sesión
-                </Button>
               </Col>
             </Form>
-            <p>¿Ya tiene una cuenta? Inicie sesión <a href='/login'>aquí.</a></p>
-          </Col>
-        </Row>
-       </Container>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cerrar
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Confirmar
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
    
 
-export default RegistrarFormulario;
+export default EditarUsuarioPagina;
