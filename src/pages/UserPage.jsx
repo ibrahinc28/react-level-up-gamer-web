@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 
-function user() {
+function UserPage() {
   return (
     <div>
       <Container>
@@ -37,4 +37,4 @@ function user() {
   )
 }
 
-export default user
+export default UserPage
