@@ -7,22 +7,26 @@ describe('ContactoPage', () => {
 
     it('debe renderizar el título, el formulario y la información de contacto', () => {
         render(<ContactoPage />);
+        
         expect(screen.getByText(/Contáctanos - Soporte Rápido/i)).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /Enviar Mensaje/i })).toBeInTheDocument();
         expect(screen.getByLabelText(/Nombre/i)).toBeInTheDocument();
-        expect(screen.getByText(/\+569 1345678/i)).toBeInTheDocument();
+        expect(screen.getByText(/\+56 9 1234 5678/i)).toBeInTheDocument();
     });
 
     it('debe actualizar el valor del input Nombre al escribir', () => {
         render(<ContactoPage />);
         const nameInput = screen.getByLabelText(/Nombre/i);
+        
         fireEvent.change(nameInput, { target: { value: 'Jane Doe' } });
+        
         expect(nameInput.value).toBe('Jane Doe');
     });
 
     it('debe mostrar errores de validación si el formulario se envía vacío', () => {
         render(<ContactoPage />);
         const submitButton = screen.getByRole('button', { name: /Enviar Mensaje/i });
+        
         fireEvent.click(submitButton);
 
         expect(screen.getByText(/El nombre es obligatorio./i)).toBeInTheDocument();
@@ -34,6 +38,7 @@ describe('ContactoPage', () => {
         render(<ContactoPage />);
         const emailInput = screen.getByLabelText(/Email/i);
         const submitButton = screen.getByRole('button', { name: /Enviar Mensaje/i });
+        
         fireEvent.change(emailInput, { target: { value: 'test@invalido' } });
         fireEvent.click(submitButton);
 
@@ -50,7 +55,6 @@ describe('ContactoPage', () => {
         fireEvent.change(screen.getByLabelText(/Mensaje/i), { target: { value: 'Necesito saber si tienen...' } });
 
         const submitButton = screen.getByRole('button', { name: /Enviar Mensaje/i });
-
         fireEvent.click(submitButton);
 
         expect(logSpy).toHaveBeenCalledWith('Datos enviados:', {
@@ -62,6 +66,7 @@ describe('ContactoPage', () => {
 
         expect(screen.getByText(/¡Mensaje Enviado!/i)).toBeInTheDocument();
         expect(screen.getByLabelText(/Nombre/i).value).toBe('');
+
         logSpy.mockRestore();
     });
 });
