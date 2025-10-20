@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { Container } from 'react-bootstrap';
 import CarritoPage from './pages/CarritoPage'; 
 import MyNavbar from './components/MyNavbar'; 
 import './App.css'; 
@@ -76,22 +77,24 @@ export default function App() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 font-sans">
+        <Container fluid className="min-h-screen bg-gray-100 font-sans p-0">
             <MyNavbar cartItemCount={calculatedTotalItems} />
 
             <main className="pt-10 pb-20">
-                <CarritoPage 
-                    cartItems={cartItems}
-                    subtotal={calculatedSubtotal}
-                    costoEnvio={calculatedCostoEnvio}
-                    totalPagar={calculatedTotalPagar}
-                    finalizarCompra={finalizarCompra}
-                    vaciarCarrito={vaciarCarrito}
-                    removeItem={removeItem}
-                    updateQuantity={updateQuantity}
-                    purchaseMessage={purchaseMessage}
-                />
+                <Container>
+                    <CarritoPage 
+                        cartItems={cartItems}
+                        subtotal={calculatedSubtotal}
+                        costoEnvio={calculatedCostoEnvio}
+                        totalPagar={calculatedTotalPagar}
+                        finalizarCompra={finalizarCompra}
+                        vaciarCarrito={vaciarCarrito}
+                        removeItem={removeItem}
+                        updateQuantity={updateQuantity}
+                        purchaseMessage={purchaseMessage}
+                    />
+                </Container>
             </main>
-        </div>
+        </Container>
     );
 }
