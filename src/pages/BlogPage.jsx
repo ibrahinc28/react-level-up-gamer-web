@@ -75,7 +75,7 @@ const blogArticles = [
     { 
         id: 10, 
         title: "Lanzamiento: Nuevo Teclado Mecánico RGB", 
-        date: "2 Sept, 2015", 
+        date: "2 Sept, 2025", 
         summary: "Conoce nuestro nuevo teclado con switches y personalización RGB de alto nivel.", 
         imageSrc: promo, 
         type: "promotion" 
