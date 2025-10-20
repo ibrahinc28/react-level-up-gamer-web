@@ -1,18 +1,14 @@
-const render = () => { console.error("Testing Library no está disponible en este entorno."); };
-const screen = { getByText: () => ({ toBeInTheDocument: () => {} }) };
-const fireEvent = { click: () => {} };
-const jest = { fn: () => {} };
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom'; 
 
-const mockCartItems = [
-    { id: 1, name: 'Teclado Neón', price: 50000, quantity: 2 },
-    { id: 2, name: 'Mouse Gamer', price: 25000, quantity: 1 },
-];
+import Carrito from '../Carrito'; 
 
-const mockProps = {
-    cartItems: mockCartItems,
-    subtotal: 125000,
-    costoEnvio: 5000,
-    totalPagar: 130000,
+const mockPropsEmpty = {
+    cartItems: [],
+    subtotal: 0,
+    costoEnvio: 0,
+    totalPagar: 0,
     finalizarCompra: jest.fn(),
     vaciarCarrito: jest.fn(),
     removeItem: jest.fn(),
@@ -20,36 +16,90 @@ const mockProps = {
     purchaseMessage: null,
 };
 
-describe('Componente Carrito', () => {
+const mockPropsFilled = {
+    ...mockPropsEmpty,
+    cartItems: [
+        { id: 99, name: 'Producto Testeado', price: 100000, quantity: 2 },
+    ],
+    subtotal: 200000, 
+    costoEnvio: 5000,
+    totalPagar: 205000,
+};
 
-    test('1. Renderiza los ítems del carrito y los totales correctamente', () => {
+
+beforeEach(() => {
+    jest.clearAllMocks();
+});
+
+describe('Componente Carrito (Usando sintaxis Jasmine)', () => {
+
+    it('1. Debe renderizar el componente con el carrito vacío por defecto', () => {
+        render(<Carrito {...mockPropsEmpty} />);
+        
+        expect(screen.getByText(/Tu carrito está vacío/i)).toBeInTheDocument();
+        expect(screen.getByText(/Subtotal:/i)).toBeInTheDocument();
+        expect(screen.getByText(/0/i)).toBeInTheDocument(); 
+        expect(screen.getByRole('button', { name: /Finalizar Compra/i })).toBeDisabled();
     });
 
-    test('2. Muestra mensaje de vacío y total/subtotal a $0 CLP cuando no hay productos', () => {
-        const emptyProps = {
-            ...mockProps,
-            cartItems: [],
-            subtotal: 0,
-            totalPagar: 0,
-        };
+    it('2. Debe renderizar el ítem de prueba y los totales correctamente (Estado Lleno)', () => {
+        render(<Carrito {...mockPropsFilled} />);
+        
+        expect(screen.getByText(/Producto Testeado/i)).toBeInTheDocument();
+        expect(screen.getByText(/205000/i)).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: /Finalizar Compra/i })).not.toBeDisabled();
     });
     
-    test('3. Llama a la función vaciarCarrito al hacer clic', () => {
+    it('3. Debe llamar a la función vaciarCarrito al hacer clic', async () => {
+        render(<Carrito {...mockPropsFilled} />);
+        const vaciarButton = screen.getByRole('button', { name: /Vaciar Carrito/i });
+        await userEvent.click(vaciarButton);
+        expect(mockPropsFilled.vaciarCarrito).toHaveBeenCalledTimes(1);
     });
 
-    test('4. Llama a la función finalizarCompra al hacer clic', () => {
+    it('4. Debe llamar a la función finalizarCompra al hacer clic', async () => {
+        render(<Carrito {...mockPropsFilled} />);
+        const finalizarButton = screen.getByRole('button', { name: /Finalizar Compra/i });
+        await userEvent.click(finalizarButton);
+        expect(mockPropsFilled.finalizarCompra).toHaveBeenCalledTimes(1);
     });
 
-    test('5. El enlace Continuar Comprando tiene el atributo href correcto', () => {
+    it('5. Debe llamar a updateQuantity con la nueva cantidad al hacer clic en el botón "+"', async () => {
+        render(<Carrito {...mockPropsFilled} />);
+        const plusButton = screen.getByRole('button', { name: /\+/i }); 
+        
+        await userEvent.click(plusButton);
+        expect(mockPropsFilled.updateQuantity).toHaveBeenCalledWith(99, 3); 
     });
 
-    test('6. Llama a updateQuantity con la nueva cantidad al hacer clic en el botón "+"', () => {
+    it('6. Debe llamar a updateQuantity con la nueva cantidad al hacer clic en el botón "-"', async () => {
+        render(<Carrito {...mockPropsFilled} />);
+        const minusButton = screen.getByRole('button', { name: /-/i }); 
+        
+        await userEvent.click(minusButton);
+
+        expect(mockPropsFilled.updateQuantity).toHaveBeenCalledWith(99, 1); 
     });
 
-    test('7. Llama a updateQuantity al hacer clic en el botón "-" y lo deshabilita en 1', () => {
+    it('7. El botón "-" debe estar deshabilitado cuando la cantidad es 1', () => {
+        const propsQtyOne = {
+             ...mockPropsEmpty,
+             cartItems: [{ id: 99, name: 'Producto Testeado', price: 100000, quantity: 1 }],
+        };
+        render(<Carrito {...propsQtyOne} />);
+        
+        const minusButton = screen.getByRole('button', { name: /-/i }); 
+        
+        expect(minusButton).toBeDisabled();
     });
 
-    test('8. Llama a removeItem con el ID correcto al hacer clic en la "X"', () => {
+    it('8. Debe llamar a removeItem con el ID correcto al hacer clic en el botón de eliminar ("X")', async () => {
+        render(<Carrito {...mockPropsFilled} />);
+        
+        const removeButton = screen.getByRole('button', { name: /remover|eliminar|x/i });
+        
+        await userEvent.click(removeButton);
+        expect(mockPropsFilled.removeItem).toHaveBeenCalledWith(99);
     });
 
 });
