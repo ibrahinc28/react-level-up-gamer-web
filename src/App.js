@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import MyNavbar from './components/MyNavbar'; 
+import MyNavbar from './components/MyNavbar';
+import Footer from './components/Footer';
 import BlogPage from './pages/BlogPage'; 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
                     <Route path="/iniciarsesion" element={<BlogPage />} />
                 </Routes>
             </main>
+            <Footer />
         </Router>
     );
 }
