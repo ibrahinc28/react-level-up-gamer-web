@@ -1,23 +1,30 @@
-// src/components/Productos.js
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import { productos } from './ProductosData';
+
+
 function Productos() {
-const productos = [
-    { id: 1, nombre: "Producto A", precio: 100 },
-    { id: 2, nombre: "Producto B", precio: 200 },
-    { id: 3, nombre: "Producto C", precio: 300 },
-];
 
 return (
-    <div>
+        <div>
         <h1>Productos</h1>
-        <ul>
+        <div className="d-flex flex-wrap justify-content-around">
             {productos.map(producto => (
-            <li key={producto.id}>
-            {producto.nombre} - ${producto.precio}
-            </li>
-        ))}
-        </ul>
-    </div>
+            <Card key={producto.codigo} style={{ width: '18rem', margin: '10px' }}>
+                <Card.Img variant="top" src={producto.imagen} alt={producto.nombre} style={{ height: '150px', width: '100%', objectFit: 'contain' }} />
+                <Card.Body>
+                <Card.Title>{producto.nombre}</Card.Title>
+                <Card.Text>{producto.descripcion}</Card.Text>
+                <Card.Text><strong>${producto.precio.toLocaleString('es-CL')} CLP</strong></Card.Text>
+                <Button variant="primary">Agregar al carrito</Button>
+                </Card.Body>
+            </Card>
+            ))}
+        </div>
+        </div>
     );
 }
+
 
 export default Productos;
