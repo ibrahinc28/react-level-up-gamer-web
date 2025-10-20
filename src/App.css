@@ -30,7 +30,7 @@ html, body, #root {
         align-items: center;
         padding-left: 40px !important;
         padding-right: 40px !important;
-        min-height: 80px;
+        min-height: 126px; 
     }
 }
 
@@ -68,7 +68,7 @@ html, body, #root {
     color: var(--text-light) !important;
     font-weight: 500;
     transition: all 0.3s ease;
-    font-size: 1.1em;
+    font-size: 1.0em; 
     padding: 8px 16px !important;
     text-decoration: none !important; 
     border-bottom: 2px solid transparent !important;
@@ -82,6 +82,16 @@ html, body, #root {
     border-bottom: 2px solid var(--neon-primary) !important; 
     padding-bottom: 6px !important;
     text-decoration: none !important; 
+}
+
+.footer {
+    background-color: var(--bg-dark); /* Usamos el color de fondo general */
+    border-top: 2px solid var(--neon-secondary); /* Borde superior similar al navbar */
+    color: var(--text-light);
+    text-align: center;
+    padding: 20px 0; /* Relleno superior e inferior para el contenido */
+    min-height: 10px; /* **AQUÍ SE DEFINE LA ALTURA** (ejemplo: 120px) */
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5); 
 }
 
 .neon-glow-text-secondary {

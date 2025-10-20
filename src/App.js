@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Container } from 'react-bootstrap';
 import CarritoPage from './pages/CarritoPage'; 
-import MyNavbar from './components/MyNavbar'; 
+import MyNavbar from './components/MyNavbar';
+import Footer from './components/Footer';
 import './App.css'; 
 
 const COSTO_ENVIO_CLP = 5000;
@@ -95,6 +96,7 @@ export default function App() {
                     />
                 </Container>
             </main>
+            <Footer/>
         </Container>
     );
 }
