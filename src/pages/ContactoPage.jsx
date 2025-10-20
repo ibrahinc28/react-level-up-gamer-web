@@ -70,7 +70,7 @@ function ContactoPage() {
 
     const contactInfo = [
         { icon: '📍', title: 'Ubicación Central', text: 'Av. Antonio Varas #303, Of. 606' },
-        { icon: '📞', title: 'Línea Directa', text: '+569 1345678' },
+        { icon: '📞', title: 'Línea Directa', text: '+56 9 1234 5678' },
         { icon: '📧', title: 'Soporte Email', text: 'contacto@levelupgamer.cl' },
         { icon: '🕒', title: 'Horario', text: 'Lunes a Viernes: 10:00 - 18:00 HRS' },
     ];
