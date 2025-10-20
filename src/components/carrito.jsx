@@ -1,35 +1,23 @@
 import React from 'react';
-
+import { Table } from 'react-bootstrap'; 
 const CartRow = ({ item, removeItem, updateQuantity }) => {
     
     const itemSubtotal = item.price * item.quantity;
-    
+
     const getQuantityButtonClass = (isDisabled) => 
         isDisabled ? 'btn-disabled' : 'btn-default';
 
     return (
-        <div 
-            key={item.id} 
-            style={{
-                padding: '20px', 
-                marginBottom: '10px', 
-                border: '2px solid #333',
-                borderRadius: '8px', 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'space-between',
-                fontSize: '1.1em'
-            }}
-        >
-            <div style={{ flex: 1, fontWeight: 'bold', marginRight: '24px', fontSize: '1.2em' }}>
+        <tr key={item.id} style={{ fontSize: '1.1em' }}> 
+            <td style={{ fontWeight: 'bold', fontSize: '1.2em' }}>
                 {item.name}
-            </div>
+            </td>
             
-            <div style={{ marginRight: '24px', fontSize: '1em' }}>
+            <td style={{ fontSize: '1em' }}>
                 Precio: ${item.price.toLocaleString('es-CL')}
-            </div>
+            </td>
             
-            <div style={{ display: 'flex', alignItems: 'center', marginRight: '24px' }}>
+            <td style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <button 
                     className={getQuantityButtonClass(item.quantity <= 1)}
                     onClick={() => updateQuantity(item.id, item.quantity - 1)}
@@ -52,13 +40,13 @@ const CartRow = ({ item, removeItem, updateQuantity }) => {
                 >
                     +
                 </button>
-            </div>
+            </td>
             
-            <div style={{ fontWeight: 'bold', marginRight: '24px', fontSize: '1.3em' }}>
+            <td style={{ fontWeight: 'bold', fontSize: '1.3em' }}>
                 ${itemSubtotal.toLocaleString('es-CL')}
-            </div>
+            </td>
 
-            <div>
+            <td>
                 <button
                     style={{ color: 'var(--neon-primary)', border: 'none', background: 'none', cursor: 'pointer', fontSize: '2em', padding: '0 10px' }} 
                     title="Eliminar producto"
@@ -66,8 +54,8 @@ const CartRow = ({ item, removeItem, updateQuantity }) => {
                 >
                     X
                 </button>
-            </div>
-        </div>
+            </td>
+        </tr>
     );
 };
 
@@ -103,23 +91,39 @@ const Carrito = ({
 
         return (
             <div style={{ marginTop: '24px' }}>
-
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', borderBottom: '2px solid var(--neon-primary)', paddingBottom: '12px', marginBottom: '12px', paddingLeft: '20px', paddingRight: '20px', fontSize: '1.3em' }}>
-                    <div style={{ flex: 1 }}>Producto</div>
-                    <div style={{ marginRight: '24px' }}>Precio</div>
-                    <div style={{ marginRight: '24px' }}>Cantidad</div>
-                    <div style={{ marginRight: '24px' }}>Subtotal</div>
-                    <div>Eliminar</div>
-                </div>
-
-                {cartItems.map((item) => (
-                    <CartRow 
-                        key={item.id} 
-                        item={item} 
-                        removeItem={removeItem}
-                        updateQuantity={updateQuantity}
-                    />
-                ))}
+                <Table 
+                    responsive 
+                    style={{ 
+                        borderCollapse: 'collapse', 
+                        width: '100%', 
+                        tableLayout: 'fixed' 
+                    }}
+                >
+                    <thead>
+                        <tr style={{ 
+                            fontWeight: 'bold', 
+                            borderBottom: '2px solid var(--neon-primary)', 
+                            paddingBottom: '12px', 
+                            fontSize: '1.3em' 
+                        }}>
+                            <th style={{ flex: 1, padding: '12px' }}>Producto</th>
+                            <th style={{ padding: '12px' }}>Precio</th>
+                            <th style={{ padding: '12px', textAlign: 'center' }}>Cantidad</th>
+                            <th style={{ padding: '12px' }}>Subtotal</th>
+                            <th style={{ padding: '12px' }}>Eliminar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {cartItems.map((item) => (
+                            <CartRow 
+                                key={item.id} 
+                                item={item} 
+                                removeItem={removeItem}
+                                updateQuantity={updateQuantity}
+                            />
+                        ))}
+                    </tbody>
+                </Table>
             </div>
         );
     };
