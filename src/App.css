@@ -1,187 +1,110 @@
 :root {
-    --background-color: #121212;
-    --card-bg-color: #1e1e1e;
-    
-    --navbar-bg-color: #0D1C2A;
-    
-    --primary-neon: #00FFFF;
-    --primary-neon-dark: #009999;
-
-    --secondary-neon: #39FF14;
-    --secondary-neon-dark: #2BB80F;
-    
-    --promotion-color: #FF4500;
-    
-    --bestseller-color: #FF00FF; 
-    --bestseller-color-dark: #CC00CC;
-
-    --guide-color: #FFD700;
+    --neon-primary: #00ffc4;
+    --neon-secondary: #ff007f;
+    --bg-dark: #121212;
+    --text-light: #e0e0e0;
+    --bg-navbar-dark: #1D2A3A;
+    --bg-card: #1a1a1a;
 }
 
-body {
-    background-color: var(--background-color);
-    color: #FFFFFF;
-    font-family: 'Inter', sans-serif;
+html, body, #root {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif; 
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
 }
 
-.navbar {
-    background-color: var(--navbar-bg-color) !important;
-    border-bottom: 3px solid var(--primary-neon);
-    padding-top: 10px;
-    padding-bottom: 10px;
-    box-shadow: 0 4px 10px rgba(0, 255, 255, 0.2);
+.navbar-dark {
+    background-color: var(--bg-navbar-dark) !important;
+    border-bottom: 2px solid var(--neon-secondary); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); 
 }
 
-.navbar .nav-link {
-    color: #DDDDDD !important;
-    font-weight: 500;
-    transition: color 0.3s;
+.nav-link {
+    color: var(--text-light) !important;
+    transition: all 0.3s ease;
 }
 
-.navbar .nav-link:hover {
-    color: var(--primary-neon) !important;
+.nav-link:hover, .nav-link.active {
+    color: var(--neon-primary) !important;
+    text-shadow: 0 0 5px var(--neon-primary);
+    border-bottom: 2px solid var(--neon-primary) !important; 
 }
 
-.navbar .nav-link.active {
-    color: var(--primary-neon) !important; 
-    border-bottom: none;
-    padding-bottom: 5px;
+.neon-glow-text-primary {
+    color: var(--neon-primary);
+    text-shadow: 
+        0 0 5px rgba(0, 255, 196, 0.6), 
+        0 0 10px var(--neon-primary), 
+        0 0 20px rgba(0, 255, 196, 0.8);
 }
 
-.blog-page {
-    padding-top: 40px;
-    padding-bottom: 50px;
+.neon-glow-text-secondary {
+    color: var(--neon-secondary);
+    text-shadow: 
+        0 0 5px rgba(255, 0, 127, 0.6), 
+        0 0 10px var(--neon-secondary), 
+        0 0 20px rgba(255, 0, 127, 0.8);
 }
 
-.blog-page h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #FFFFFF;
-    margin-bottom: 30px;
-    border-bottom: none;
-    display: inline-block;
-    padding-bottom: 5px;
+.btn-default, .btn-neon-action, .btn-disabled {
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 1em; 
 }
 
-.section-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 25px;
-    color: #FFFFFF;
-    border-bottom: none;
-    display: inline-block;
-    padding-bottom: 5px;
+.btn-neon-action {
+    background-color: var(--neon-secondary);
+    color: var(--bg-dark);
+    text-transform: uppercase;
+    box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
+}
+
+.btn-neon-action:hover {
+    background-color: #ff3399;
+    box-shadow: 0 0 20px var(--neon-secondary), 0 0 30px rgba(255, 0, 127, 0.8);
+    transform: scale(1.05);
+}
+
+.btn-default {
+    background-color: rgba(51, 51, 51, 0.6);
+    color: var(--text-light);
+    border: 1px solid var(--neon-primary); 
+    box-shadow: 0 0 5px rgba(0, 255, 196, 0.3);
+}
+
+.btn-default:hover {
+    background-color: var(--neon-primary);
+    color: var(--bg-dark);
+    box-shadow: 0 0 12px var(--neon-primary);
 }
 
 .card {
-    background-color: var(--card-bg-color);
-    color: #FFFFFF;
+    background-color: var(--bg-card);
+    color: var(--text-light);
     border: 1px solid #333;
     border-radius: 12px;
     transition: transform 0.3s, box-shadow 0.3s;
-    height: 100%;
 }
-
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 0 15px var(--primary-neon);
+    box-shadow: 0 0 15px var(--neon-primary);
 }
 
-.card-img-top {
-    height: 180px;
-    object-fit: cover;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
+.form-control {
+    background-color: #1a1a1a !important;
+    color: var(--text-light) !important;
+    border-color: #555 !important;
+    border-radius: 6px;
 }
 
-.card-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--primary-neon);
-    margin-top: 10px;
-}
-
-.card-subtitle {
-    font-size: 0.85rem;
-    color: #888888 !important;
-    margin-bottom: 8px;
-}
-
-.card-text {
-    font-size: 0.95rem;
-    color: #DDDDDD;
-}
-
-.read-more-btn {
-    background-color: var(--primary-neon);
-    border-color: var(--primary-neon);
-    color: var(--background-color) !important;
-    font-weight: bold;
-    transition: all 0.2s;
-    margin-top: 15px;
-    border-radius: 8px;
-}
-
-.read-more-btn:hover {
-    background-color: var(--primary-neon-dark);
-    border-color: var(--primary-neon-dark);
-    box-shadow: 0 0 10px var(--primary-neon);
-}
-
-.news .col:nth-child(n+4) .card-title {
-    color: var(--secondary-neon) !important;
-}
-
-.news .col:nth-child(n+4) .read-more-btn {
-    background-color: var(--secondary-neon) !important;
-    border-color: var(--secondary-neon) !important;
-}
-
-.news .col:nth-child(n+4) .read-more-btn:hover {
-    background-color: var(--secondary-neon-dark) !important;
-    border-color: var(--secondary-neon-dark) !important;
-    box-shadow: 0 0 10px var(--secondary-neon) !important;
-}
-
-.promotion .card-title {
-    color: var(--promotion-color);
-}
-
-.promotion .read-more-btn {
-    background-color: var(--promotion-color);
-    border-color: var(--promotion-color);
-}
-
-.promotion .read-more-btn:hover {
-    background-color: #CC3700;
-    border-color: #CC3700;
-}
-
-.bestseller .card-title {
-    color: var(--bestseller-color);
-}
-
-.bestseller .read-more-btn {
-    background-color: var(--bestseller-color);
-    border-color: var(--bestseller-color);
-}
-
-.bestseller .read-more-btn:hover {
-    background-color: var(--bestseller-color-dark);
-    border-color: var(--bestseller-color-dark);
-}
-
-.guide .card-title {
-    color: var(--guide-color);
-}
-
-.guide .read-more-btn {
-    background-color: var(--guide-color);
-    border-color: var(--guide-color);
-    color: #121212 !important;
-}
-
-.guide .read-more-btn:hover {
-    background-color: #CCA800;
-    border-color: #CCA800;
+.form-control:focus {
+    border-color: var(--neon-primary) !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 255, 196, 0.25) !important;
 }
