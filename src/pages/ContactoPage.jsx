@@ -125,7 +125,6 @@ function ContactoPage() {
                                         value={formData.name}
                                         onChange={handleChange}
                                         isInvalid={!!errors.name}
-                                        /* Se removió la clase CSS no estándar del input */
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
                                 </Form.Group>
@@ -139,7 +138,6 @@ function ContactoPage() {
                                         value={formData.email}
                                         onChange={handleChange}
                                         isInvalid={!!errors.email}
-                                        /* Se removió la clase CSS no estándar del input */
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
                                 </Form.Group>
@@ -153,7 +151,6 @@ function ContactoPage() {
                                         value={formData.subject}
                                         onChange={handleChange}
                                         isInvalid={!!errors.subject}
-                                        /* Se removió la clase CSS no estándar del input */
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.subject}</Form.Control.Feedback>
                                 </Form.Group>
@@ -168,7 +165,6 @@ function ContactoPage() {
                                         value={formData.message}
                                         onChange={handleChange}
                                         isInvalid={!!errors.message}
-                                        /* Se removió la clase CSS no estándar del input */
                                     />
                                     <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
                                 </Form.Group>
