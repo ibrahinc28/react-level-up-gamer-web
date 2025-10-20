@@ -43,12 +43,6 @@ const productos = [
         <div>
         {/* Banner en la parte superior */}
         <Banner />
-
-        {/* Sección de categorías */}
-        <Container className="my-5">
-            <Categorias />
-        </Container>
-
         {/* Productos destacados */}
         <Container className="mt-4">
             <h2 className="mb-4 text-center" style={{ color: '#39FF14', fontFamily: "'Orbitron', sans-serif" }}>

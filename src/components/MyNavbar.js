@@ -26,21 +26,21 @@ function MyNavbar() {
                     Productos
                 </Nav.Link>
 
-                <Nav.Link href="#carrito" style={{ color: '#1E90FF', fontFamily: "'Roboto', sans-serif", display: 'flex', alignItems: 'center'}}>
+                <Nav.Link href="/carrito" style={{ color: '#1E90FF', fontFamily: "'Roboto', sans-serif", display: 'flex', alignItems: 'center'}}>
                     <img src='/images/carrito.png' alt="Home" style={{ width: '30px', height: '28px', marginRight: '8px'}} />
                     Carrito
                 </Nav.Link>
 
-                <Nav.Link href="#blog" style={{ color: '#1E90FF', fontFamily: "'Roboto', sans-serif", display: 'flex', alignItems: 'center' }}>
+                <Nav.Link href="/blog" style={{ color: '#1E90FF', fontFamily: "'Roboto', sans-serif", display: 'flex', alignItems: 'center' }}>
                     <img src='/images/blog.png' alt="Home" style={{ width: '25px', height: '25px', marginRight: '8px' }} />
                     Blog
                 </Nav.Link>
 
-                <Nav.Link href="#contacto" style={{ color: '#1E90FF', fontFamily: "'Roboto', sans-serif", display: 'flex', alignItems: 'center' }}>
+                <Nav.Link href="/contacto" style={{ color: '#1E90FF', fontFamily: "'Roboto', sans-serif", display: 'flex', alignItems: 'center' }}>
                     <img src='/images/contacto.png' alt="Home" style={{ width: '25px', height: '25px', marginRight: '8px'}} />
                     Contacto
                 </Nav.Link>
-                <Nav.Link href="#iniciarsesion" style={{ color: '#1E90FF', fontFamily: "'Roboto', sans-serif", display: 'flex', alignItems: 'center' }}>
+                <Nav.Link href="/user" style={{ color: '#1E90FF', fontFamily: "'Roboto', sans-serif", display: 'flex', alignItems: 'center' }}>
                     <img src='/images/login.png' alt="Home" style={{ width: '25px', height: '25px', marginRight: '8px'}} />
                     Iniciar Sesion
                 </Nav.Link>

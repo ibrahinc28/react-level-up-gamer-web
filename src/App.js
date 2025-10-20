@@ -23,8 +23,14 @@ function App() {
           
           {/* Ruta productos */}
           <Route path="/productos" element={<Productos />} />
-
           <Route path="/productos/:codigo" element={<DetalleProducto />} />
+          <Route path="/carrito" element={<Carrito />} />
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path='/user' element={<UserPage />}/>
+          <Route path='/login' element={<LoginPage />}/>
+          <Route path='/signup' element={<SignupPage />}/>
+          <Route path='/adminmode' element={<AdminPage />}/>
 
           
           {/* Si quieres una ruta alias para home, usa redirección o elimina si no es necesaria */}

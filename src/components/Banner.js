@@ -1,25 +1,37 @@
 import React from 'react';
-
+import Carousel from 'react-bootstrap/Carousel';
 
 function Banner() {
-    const bannerStyle = {
-        backgroundImage: `url(/images/banner-descuento.png)`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        height: '300px',
-        color: '#39FF14',  // Verde neón del cliente
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontFamily: "'Orbitron', sans-serif",
-        textShadow: '2px 2px 4px black',
-        position: 'relative',
-        zIndex: 1,
-    };
-
     return (
-        <section style={bannerStyle}></section>
+        <Carousel interval={3000} pause= "hover" controls={true} indicators={true} fade={true} style={{ height: '300px' }}>
+        <Carousel.Item interval={3000}>
+            <img
+            className="d-block w-100"
+            src="/images/banner-descuento.png"
+            alt="Banner 1"
+            style={{ height: '300px', objectFit: 'cover' }}
+            />
+            {/* Puedes agregar leyendas si quieres */}
+        </Carousel.Item>
+        {/* Agrega las otras imágenes así: */}
+        <Carousel.Item interval={3000}>
+            <img
+            className="d-block w-100"
+            src="/images/bannerPlayStation.png"
+            alt="Banner 2"
+            style={{ height: '300px', objectFit: 'cover' }}
+            />
+        </Carousel.Item>
+        <Carousel.Item interval={3000}>
+            <img
+            className="d-block w-100"
+            src="/images/bannerHaloween.png"
+            alt="Banner 3"
+            style={{ height: '300px', objectFit: 'cover' }}
+            />
+        </Carousel.Item>
+        {/* Añade más según las imágenes que tengas */}
+        </Carousel>
     );
 }
 
