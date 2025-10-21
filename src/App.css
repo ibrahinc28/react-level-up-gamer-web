@@ -1,56 +1,29 @@
 :root {
     --background-color: #121212;
     --card-bg-color: #1e1e1e;
-<<<<<<< HEAD
-    --text-light: #FFFFFF;
-
-    --navbar-bg-color: #0D1C2A;
-    
-=======
     --navbar-bg-color: #051018;
->>>>>>> origin/dev
     --primary-neon: #00FFFF;
     --primary-neon-dark: #009999;
     --secondary-neon: #39FF14;
     --secondary-neon-dark: #2BB80F;
-<<<<<<< HEAD
-    
-    --promotion-color: #FF4500;
-    --bestseller-color: #FF00FF;
-=======
     --promotion-color: #FF4500;
     --bestseller-color: #FF00FF; 
->>>>>>> origin/dev
     --bestseller-color-dark: #CC00CC;
     --guide-color: #FFD700;
 }
 
-<<<<<<< HEAD
-
-html, body, #root {
-    background-color: var(--background-color);
-    color: var(--text-light);
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-=======
 body {
     background-color: var(--background-color);
     color: #FFFFFF;
     font-family: 'Inter', sans-serif;
->>>>>>> origin/dev
 }
 
 .navbar {
     background-color: var(--navbar-bg-color) !important;
     border-bottom: 3px solid var(--primary-neon);
-<<<<<<< HEAD
-=======
     padding-top: 10px;
     padding-bottom: 10px;
     box-shadow: 0 4px 10px rgba(0, 255, 255, 0.2);
->>>>>>> origin/dev
 }
 
 .navbar .nav-link {
@@ -67,200 +40,6 @@ body {
     color: var(--primary-neon) !important; 
     border-bottom: none;
     padding-bottom: 5px;
-<<<<<<< HEAD
-}
-
-.btn-default, .btn-neon-action, .btn-disabled {
-    cursor: pointer;
-    font-weight: bold;
-    border-radius: 8px;
-    padding: 10px 20px;
-    transition: all 0.3s ease;
-    border: none;
-    font-size: 1em; 
-    text-transform: uppercase;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.btn-neon-action {
-    background-color: var(--primary-neon);
-    color: var(--background-color) !important;
-    border-color: var(--primary-neon);
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-}
-
-.btn-neon-action:hover {
-    background-color: var(--primary-neon-dark);
-    border-color: var(--primary-neon-dark);
-    box-shadow: 0 0 15px var(--primary-neon);
-    transform: scale(1.05);
-}
-
-.btn-default {
-    background-color: transparent;
-    color: var(--secondary-neon) !important;
-    border: 2px solid var(--secondary-neon); 
-    box-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
-}
-
-.btn-default:hover {
-    background-color: var(--secondary-neon);
-    color: var(--background-color) !important;
-    border-color: var(--secondary-neon);
-    box-shadow: 0 0 12px var(--secondary-neon);
-}
-
-.blog-page {
-    padding-top: 40px;
-    padding-bottom: 50px;
-}
-
-.blog-page h1 {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #FFFFFF;
-    margin-bottom: 30px;
-    display: inline-block;
-    padding-bottom: 5px;
-}
-
-.section-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 25px;
-    color: #FFFFFF;
-    display: inline-block;
-    padding-bottom: 5px;
-}
-
-.card {
-    background-color: var(--card-bg-color);
-    color: #FFFFFF;
-    border: 1px solid #333;
-    border-radius: 12px;
-    transition: transform 0.3s, box-shadow 0.3s;
-    height: 100%;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 15px var(--primary-neon);
-}
-
-.card-img-top {
-    height: 180px;
-    object-fit: cover;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-}
-
-.card-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--primary-neon);
-    margin-top: 10px;
-}
-
-.card-subtitle {
-    font-size: 0.85rem;
-    color: #888888 !important;
-    margin-bottom: 8px;
-}
-
-.card-text {
-    font-size: 0.95rem;
-    color: #DDDDDD;
-}
-
-.read-more-btn {
-    background-color: var(--primary-neon);
-    border-color: var(--primary-neon);
-    color: var(--background-color) !important;
-    font-weight: bold;
-    transition: all 0.2s;
-    margin-top: 15px;
-    border-radius: 8px;
-    padding: 8px 16px;
-    text-transform: uppercase;
-}
-
-.read-more-btn:hover {
-    background-color: var(--primary-neon-dark);
-    border-color: var(--primary-neon-dark);
-    box-shadow: 0 0 10px var(--primary-neon);
-}
-
-.news .col:nth-child(n+4) .card-title {
-    color: var(--secondary-neon) !important;
-}
-
-.news .col:nth-child(n+4) .read-more-btn {
-    background-color: var(--secondary-neon) !important;
-    border-color: var(--secondary-neon) !important;
-}
-
-.news .col:nth-child(n+4) .read-more-btn:hover {
-    background-color: var(--secondary-neon-dark) !important;
-    border-color: var(--secondary-neon-dark) !important;
-    box-shadow: 0 0 10px var(--secondary-neon) !important;
-}
-
-.promotion .card-title {
-    color: var(--promotion-color);
-}
-
-.promotion .read-more-btn {
-    background-color: var(--promotion-color);
-    border-color: var(--promotion-color);
-}
-
-.promotion .read-more-btn:hover {
-    background-color: #CC3700;
-    border-color: #CC3700;
-}
-
-.bestseller .card-title {
-    color: var(--bestseller-color);
-}
-
-.bestseller .read-more-btn {
-    background-color: var(--bestseller-color);
-    border-color: var(--bestseller-color);
-}
-
-.bestseller .read-more-btn:hover {
-    background-color: var(--bestseller-color-dark);
-    border-color: var(--bestseller-color-dark);
-}
-
-.guide .card-title {
-    color: var(--guide-color);
-}
-
-.guide .read-more-btn {
-    background-color: var(--guide-color);
-    border-color: var(--guide-color);
-    color: #121212 !important;
-}
-
-.guide .read-more-btn:hover {
-    background-color: #CCA800;
-    border-color: #CCA800;
-}
-
-.form-control {
-    background-color: #1a1a1a !important;
-    color: var(--text-light) !important;
-    border-color: #555 !important;
-    border-radius: 6px;
-}
-
-.form-control:focus {
-    border-color: var(--primary-neon) !important;
-    box-shadow: 0 0 0 0.25rem rgba(0, 255, 255, 0.25) !important;
-=======
->>>>>>> origin/dev
 }
 
 .contact-main-page,

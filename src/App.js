@@ -9,6 +9,14 @@ import Home from './components/Home';
 import Productos from './components/Productos';
 import DetalleProducto from './components/DetalleProductos';
 import Categorias from './components/Categorias';
+import Carrito from './components/Carrito';
+import BlogPage from './pages/BlogPage';
+import AdminPage from './pages/AdminPage';
+import Contacto from './pages/ContactoPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import UserPage from './pages/UserPage';
+
 
 function App() {
   return (
