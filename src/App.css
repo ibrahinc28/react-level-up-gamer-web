@@ -36,3 +36,12 @@
     transform: rotate(360deg);
   }
 }
+
+.producto-descripcion {
+  font-size: 0.9rem;
+  color: #D3D3D3;
+  height: 60px;          /* Altura fija para uniformidad */
+  overflow-y: auto;      /* Scroll si es muy largo */
+  line-height: 1.2rem;   /* Mejor legibilidad */
+}
+
