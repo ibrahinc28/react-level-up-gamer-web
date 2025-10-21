@@ -1,9 +1,10 @@
-
-
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { productos } from './ProductosData';
 import { Card, Button, Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+
 
 function DetalleProducto() {
     const { codigo } = useParams();
@@ -27,10 +28,12 @@ function DetalleProducto() {
             style={{ height: '300px', width: '100%', objectFit: 'contain' }}
             />
             <Card.Body>
-            <Card.Title>{producto.nombre}</Card.Title>
-            <Card.Text>{producto.descripcion}</Card.Text>
-            <Card.Text><strong>${producto.precio.toLocaleString('es-CL')} CLP</strong></Card.Text>
-            <Button variant="primary">Agregar al carrito</Button>
+            <Card.Title style={{ color: '#000', opacity: 1 }}>{producto.nombre}</Card.Title>
+            <Card.Text style={{ color: '#000', opacity: 1 }}>{producto.descripcion}</Card.Text>
+            <Card.Text style={{ color: '#000', opacity: 1 }}><strong> Precio: ${producto.precio.toLocaleString('es-CL')} CLP</strong></Card.Text>
+            <Link to="/productos">
+                <Button variant="secondary">Volver</Button>
+            </Link>
             </Card.Body>
         </Card>
         </Container>

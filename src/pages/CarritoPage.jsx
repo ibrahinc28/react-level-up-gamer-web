@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Carrito from '../components/carrito';
+import Productos from '../components/Productos';
 
 const getCartFromLocalStorage = () => {
     try {
@@ -28,17 +29,31 @@ const CarritoPage = () => {
         saveCartToLocalStorage(cartItems);
     }, [cartItems]);
 
-    const removeItem = (id) => {
-        const newCart = cartItems.filter(item => item.id !== id);
+const addItemToCart = (product) => {
+    setCartItems((prevItems) => {
+        const itemExists = prevItems.find(item => item.codigo === product.codigo);
+        if (itemExists) {
+        return prevItems.map(item =>
+            item.codigo === product.codigo ? { ...item, quantity: item.quantity + 1 } : item
+        );
+        }
+        return [...prevItems, { ...product, quantity: 1 }];
+    });
+    setPurchaseMessage('');
+};
+
+
+    const removeItem = (codigo) => {
+        const newCart = cartItems.filter(item => item.codigo !== codigo);
         setCartItems(newCart);
         setPurchaseMessage(`❌ Producto eliminado correctamente.`);
     };
 
-    const updateQuantity = (id, quantity) => {
+    const updateQuantity = (codigo, quantity) => {
         if (quantity < 1) return;
 
         const newCart = cartItems.map(item =>
-            item.id === id ? { ...item, quantity: quantity } : item
+            item.codigo === codigo ? { ...item, quantity: quantity } : item
         );
         setCartItems(newCart);
         setPurchaseMessage('');
@@ -55,11 +70,12 @@ const CarritoPage = () => {
         setPurchaseMessage("✅ ¡Gracias por tu compra! Tu pedido ha sido procesado.");
     };
 
-    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.precio * item.quantity), 0);
     const costoEnvio = subtotal > 100000 ? 0 : 5000; 
     const totalPagar = subtotal + costoEnvio;
 
     return (
+        
         <Carrito 
             cartItems={cartItems}
             subtotal={subtotal}
@@ -71,6 +87,7 @@ const CarritoPage = () => {
             updateQuantity={updateQuantity}
             purchaseMessage={purchaseMessage}
         />
+   
     );
 };
 
