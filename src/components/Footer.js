@@ -61,8 +61,4 @@ const Footer = () => {
     );
 };
 
-<<<<<<< HEAD
 export default Footer;
-=======
-export default Footer;
->>>>>>> origin/dev
