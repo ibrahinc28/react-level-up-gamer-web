@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { act } from 'react';
-import { MemoryRouter } from 'react-router-dom'; // Envuelve para contexto router
+import { MemoryRouter } from 'react-router-dom'; 
 import Home from './components/Home';
 
 let container = null;

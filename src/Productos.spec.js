@@ -1,30 +1,29 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { act } from 'react';
-import { MemoryRouter } from 'react-router-dom'; 
+import ReactDOM from 'react-dom';
+import { MemoryRouter } from 'react-router-dom';
 import Productos from './components/Productos';
 
-let container = null;
+describe('Componente Productos', () => {
+    let container;
 
-beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
+    beforeEach(() => {
+        container = document.createElement('div');
+        document.body.appendChild(container);
     });
 
     afterEach(() => {
-    document.body.removeChild(container);
-    container = null;
+        ReactDOM.unmountComponentAtNode(container);
+        document.body.removeChild(container);
+        container = null;
     });
 
-    describe('Componente Productos', () => {
     it('renderiza correctamente el título y los productos', (done) => {
-        act(() => {
-        createRoot(container).render(
-            <MemoryRouter>
+        ReactDOM.render(
+        <MemoryRouter>
             <Productos />
-            </MemoryRouter>
+        </MemoryRouter>,
+        container
         );
-        });
 
         setTimeout(() => {
         const h1 = container.querySelector('h1');
@@ -32,10 +31,9 @@ beforeEach(() => {
         expect(h1.textContent).toBe('Productos');
 
         const cards = container.querySelectorAll('.card');
-        expect(cards.length > 0).toBe(true); // Jasmine compatible
+        expect(cards.length).toBeGreaterThan(0);
 
-        const firstCard = cards[0];
-        expect(firstCard.textContent).toContain('CLP');
+        expect(cards[0].textContent).toContain('CLP');
 
         done();
         }, 0);

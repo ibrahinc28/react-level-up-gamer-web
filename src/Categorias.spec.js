@@ -31,8 +31,7 @@ beforeEach(() => {
         expect(buttonGroups.length > 0).toBe(true);
         expect(buttonGroups[0].textContent).toContain('Juegos de Mesa');
 
-        // Comentado porque "Catan" no está visible sin interacción
-        // expect(container.textContent).toContain('Catan');
+        
 
         const links = container.querySelectorAll('a.dropdown-item');
         if (links.length > 0) {

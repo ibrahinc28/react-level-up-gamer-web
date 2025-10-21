@@ -17,22 +17,33 @@ import Contacto from './pages/ContactoPage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import UserPage from './pages/UserPage';
+import { productos } from './components/ProductosData';
 
+
+
+const getCartFromLocalStorage = () => {
+  try {
+    const storedCart = localStorage.getItem('shoppingCart');
+    return storedCart ? JSON.parse(storedCart) : [];
+  } catch {
+    return [];
+  }
+};
 
 function App() {
 
 
   const [cartItems, setCartItems] = useState([]);
 
-  const addItemToCart = (product) => {
+  const addItemToCart = (productos) => {
     setCartItems((prevItems) => {
-      const itemExists = prevItems.find(item => item.id === product.id);
+      const itemExists = prevItems.find(item => item.codigo === productos.codigo);
       if (itemExists) {
         return prevItems.map(item =>
-          item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+          item.codigo === productos.codigo ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
-      return [...prevItems, { ...product, quantity: 1 }];
+      return [...prevItems, { ...productos, quantity: 1 }];
     });
   };
 
@@ -50,7 +61,7 @@ function App() {
           {/* Rutas */}
           <Route path="/productos" element={<Productos addItemToCart={addItemToCart}/>} />
           <Route path="/productos/:codigo" element={<DetalleProducto />} />
-          <Route path="/carrito" element={<CarritoPage cartItems={cartItems}/>} />
+          <Route path="/carrito" element={<CarritoPage cartItems={cartItems} setCartItems={setCartItems} />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path='/user' element={<UserPage />}/>

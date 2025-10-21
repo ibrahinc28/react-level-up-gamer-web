@@ -20,16 +20,15 @@ const saveCartToLocalStorage = (cart) => {
     }
 };
 
-const CarritoPage = () => {
+const CarritoPage = ({ cartItems, setCartItems }) => {
 
-    const [cartItems, setCartItems] = useState(getCartFromLocalStorage());
     const [purchaseMessage, setPurchaseMessage] = useState('');
 
     useEffect(() => {
         saveCartToLocalStorage(cartItems);
     }, [cartItems]);
 
-const addItemToCart = (product) => {
+/*const addItemToCart = (product) => {
     setCartItems((prevItems) => {
         const itemExists = prevItems.find(item => item.codigo === product.codigo);
         if (itemExists) {
@@ -40,31 +39,33 @@ const addItemToCart = (product) => {
         return [...prevItems, { ...product, quantity: 1 }];
     });
     setPurchaseMessage('');
-};
+};*/
 
 
-    const removeItem = (codigo) => {
-        const newCart = cartItems.filter(item => item.codigo !== codigo);
-        setCartItems(newCart);
-        setPurchaseMessage(`❌ Producto eliminado correctamente.`);
+const removeItem = (codigo) => {
+    
+    setCartItems(prevItems => prevItems.filter(item => item.codigo !== codigo));
+    setPurchaseMessage(`❌ Producto eliminado correctamente.`);
     };
 
-    const updateQuantity = (codigo, quantity) => {
-        if (quantity < 1) return;
 
-        const newCart = cartItems.map(item =>
-            item.codigo === codigo ? { ...item, quantity: quantity } : item
-        );
-        setCartItems(newCart);
-        setPurchaseMessage('');
+const updateQuantity = (codigo, quantity) => {
+    if (quantity < 1) return;
+    setCartItems(prevItems =>
+        prevItems.map(item =>
+        item.codigo === codigo ? { ...item, quantity: quantity } : item
+        )
+    );
+    setPurchaseMessage('');
     };
 
-    const vaciarCarrito = () => {
-        setCartItems([]);
-        setPurchaseMessage("✅ ¡El carrito ha sido vaciado completamente!");
+
+const vaciarCarrito = () => {
+    setCartItems([]);
+    setPurchaseMessage("✅ ¡El carrito ha sido vaciado completamente!");
     };
 
-    const finalizarCompra = () => {
+const finalizarCompra = () => {
 
         setCartItems([]);
         setPurchaseMessage("✅ ¡Gracias por tu compra! Tu pedido ha sido procesado.");
