@@ -1,36 +1,43 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { act } from 'react';
+import { MemoryRouter } from 'react-router-dom'; 
 import Productos from './components/Productos';
 
-// Crear un contenedor DOM para montar el componente durante el test
 let container = null;
 
 beforeEach(() => {
     container = document.createElement('div');
     document.body.appendChild(container);
-});
+    });
 
-afterEach(() => {
+    afterEach(() => {
     document.body.removeChild(container);
     container = null;
-});
+    });
 
-describe('Componente Productos', () => {
-    it('renderiza correctamente el título y los productos', () => {
+    describe('Componente Productos', () => {
+    it('renderiza correctamente el título y los productos', (done) => {
         act(() => {
-        createRoot(container).render(<Productos />);
+        createRoot(container).render(
+            <MemoryRouter>
+            <Productos />
+            </MemoryRouter>
+        );
         });
 
-        // Verifica que el título esté renderizado
-        expect(container.querySelector('h1').textContent).toBe('Productos');
+        setTimeout(() => {
+        const h1 = container.querySelector('h1');
+        expect(h1).not.toBeNull();
+        expect(h1.textContent).toBe('Productos');
 
-        // Verifica que haya al menos una card (producto) en el renderizado
         const cards = container.querySelectorAll('.card');
-        expect(cards.length).toBeGreaterThan(0);
+        expect(cards.length > 0).toBe(true); // Jasmine compatible
 
-        // Verifica el contenido de la primera card
         const firstCard = cards[0];
-        expect(firstCard.textContent).toContain('CLP'); // Precio mostrado
+        expect(firstCard.textContent).toContain('CLP');
+
+        done();
+        }, 0);
     });
 });

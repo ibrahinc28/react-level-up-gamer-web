@@ -1,16 +1,12 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { act } from 'react';
+import { MemoryRouter } from 'react-router-dom';
 import Categorias from './components/Categorias';
 
-// Mock específico para react-router-bootstrap (que depende de react-router-dom)
-jest.mock('react-router-bootstrap', () => ({
-    LinkContainer: ({ children }) => <>{children}</>,
-    }));
+let container = null;
 
-    let container = null;
-
-    beforeEach(() => {
+beforeEach(() => {
     container = document.createElement('div');
     document.body.appendChild(container);
     });
@@ -21,22 +17,30 @@ jest.mock('react-router-bootstrap', () => ({
     });
 
     describe('Componente Categorias', () => {
-    it('renderiza todas las categorías y productos esperados', () => {
+    it('renderiza todas las categorías y productos esperados', (done) => {
         act(() => {
-        createRoot(container).render(<Categorias />);
+        createRoot(container).render(
+            <MemoryRouter>
+            <Categorias />
+            </MemoryRouter>
+        );
         });
 
+        setTimeout(() => {
         const buttonGroups = container.querySelectorAll('.btn-group .dropdown-toggle');
-        expect(buttonGroups.length).toBeGreaterThan(0);
+        expect(buttonGroups.length > 0).toBe(true);
         expect(buttonGroups[0].textContent).toContain('Juegos de Mesa');
 
-        // Comentado porque "Catan" no está renderizado sin abrir dropdown
+        // Comentado porque "Catan" no está visible sin interacción
         // expect(container.textContent).toContain('Catan');
 
         const links = container.querySelectorAll('a.dropdown-item');
         if (links.length > 0) {
-        const catanLink = Array.from(links).find(link => link.textContent === 'Catan');
-        expect(catanLink.getAttribute('href')).toBe('/productos/JM001');
+            const catanLink = Array.from(links).find(link => link.textContent === 'Catan');
+            expect(catanLink.getAttribute('href')).toBe('/productos/JM001');
         }
+
+        done();
+        }, 0);
     });
 });
