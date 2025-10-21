@@ -8,6 +8,7 @@ module.exports = function(config) {
 
         preprocessors: {
         'src/**/*.spec.js': ['webpack'],
+        'src/**/*.js': ['webpack', 'coverage'],
         },
 
         webpack: {
@@ -32,7 +33,15 @@ module.exports = function(config) {
         extensions: ['.js', '.jsx'],
         },
 
-        reporters: ['spec'],
+        reporters: ['spec', 'coverage'],
+
+        coverageReporter: {
+        dir: 'coverage/',
+        reporters: [
+        { type: 'html', subdir: 'html' },   
+        { type: 'text-summary' },           
+        ],
+    },
 
         browsers: ['ChromeHeadless'],
 
