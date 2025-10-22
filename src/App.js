@@ -21,15 +21,6 @@ import { productos } from './components/ProductosData';
 
 
 
-const getCartFromLocalStorage = () => {
-  try {
-    const storedCart = localStorage.getItem('shoppingCart');
-    return storedCart ? JSON.parse(storedCart) : [];
-  } catch {
-    return [];
-  }
-};
-
 function App() {
 
 
