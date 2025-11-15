@@ -1,42 +1,27 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { act } from 'react';
-import { MemoryRouter } from 'react-router-dom'; 
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { describe, it, expect } from 'vitest';
 import Home from './components/Home';
 
-let container = null;
+describe('Componente Home', () => {
+    it('renderiza Productos Destacados y lista de productos', async () => {
+    const { container } = render(
+        <MemoryRouter>
+        <Home />
+        </MemoryRouter>
+    );
 
-beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-    });
+    // Esperar que el título exista
+    const title = await screen.findByRole('heading', { level: 2, name: 'Productos Destacados' });
+    expect(title).toBeDefined();
 
-    afterEach(() => {
-    document.body.removeChild(container);
-    container = null;
-    });
+    // Seleccionar todas las tarjetas (clase .card) usando container
+    const cards = container.querySelectorAll('.card');
+    expect(cards.length).toBeGreaterThan(0);
 
-    describe('Componente Home', () => {
-    it('renderiza Productos Destacados y lista de productos', (done) => {
-        act(() => {
-        createRoot(container).render(
-            <MemoryRouter>
-            <Home />
-            </MemoryRouter>
-        );
-        });
-
-        setTimeout(() => {
-        const title = container.querySelector('h2');
-        expect(title.textContent).toBe('Productos Destacados');
-
-        const cards = container.querySelectorAll('.card');
-        expect(cards.length > 0).toBe(true); // Jasmine no tiene toBeGreaterThan
-
-        expect(cards[0].textContent).toContain('Catan');
-        expect(cards[0].textContent).toContain('$29.990');
-
-        done(); // Finaliza el test asíncrono
-        }, 0);
+    // Verificar contenido esperado en la primera tarjeta
+    expect(cards[0].textContent).toContain('Catan');
+    expect(cards[0].textContent).toContain('$29.990');
     });
 });

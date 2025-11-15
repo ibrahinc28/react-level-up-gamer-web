@@ -1,89 +1,58 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { act } from 'react';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { describe, it, expect } from 'vitest';
 import BlogPage from '../pages/BlogPage';
-
-let container = null;
-
-beforeEach(() => {
-  container = document.createElement('div');
-  document.body.appendChild(container);
-});
-
-afterEach(() => {
-  document.body.removeChild(container);
-  container = null;
-});
 
 describe('BlogPage Component', () => {
 
-  it('debe renderizar la página del blog correctamente', (done) => {
-    act(() => {
-      createRoot(container).render(
-        <MemoryRouter>
-          <BlogPage />
-        </MemoryRouter>
-      );
-    });
+  it('debe renderizar la página del blog correctamente', async () => {
+    render(
+      <MemoryRouter>
+        <BlogPage />
+      </MemoryRouter>
+    );
 
-    setTimeout(() => {
-      expect(container.textContent).toMatch(/Blog & Noticias Recientes/i);
-      done();
-    }, 0);
+    expect(await screen.findByText(/Blog & Noticias Recientes/i)).toBeDefined();
   });
 
-  it('debe mostrar los títulos de las secciones', (done) => {
-    act(() => {
-      createRoot(container).render(
-        <MemoryRouter>
-          <BlogPage />
-        </MemoryRouter>
-      );
-    });
+  it('debe mostrar los títulos de las secciones', async () => {
+    render(
+      <MemoryRouter>
+        <BlogPage />
+      </MemoryRouter>
+    );
 
-    setTimeout(() => {
-      expect(container.textContent).toMatch(/Noticias y Actualizaciones/i);
-      expect(container.textContent).toMatch(/Novedades y Promociones/i);
-      expect(container.textContent).toMatch(/Artículos Más Vendidos/i);
-      expect(container.textContent).toMatch(/Guías y Tutoriales/i);
-      done();
-    }, 0);
+    expect(await screen.findByText(/Noticias y Actualizaciones/i)).toBeDefined();
+    expect(screen.getByText(/Novedades y Promociones/i)).toBeDefined();
+    expect(screen.getByText(/Artículos Más Vendidos/i)).toBeDefined();
+    expect(screen.getByText(/Guías y Tutoriales/i)).toBeDefined();
   });
 
-  it('debe renderizar artículos de cada categoría', (done) => {
-    act(() => {
-      createRoot(container).render(
-        <MemoryRouter>
-          <BlogPage />
-        </MemoryRouter>
-      );
-    });
+  it('debe renderizar artículos de cada categoría', async () => {
+    render(
+      <MemoryRouter>
+        <BlogPage />
+      </MemoryRouter>
+    );
 
-    setTimeout(() => {
-      expect(container.textContent).toMatch(/¡Revisa los nuevos y alucinantes lanzamientos en el Nintendo Direct!/i);
-      expect(container.textContent).toMatch(/¡Descuento del 15% en PCs Gamers Armados!/i);
-      expect(container.textContent).toMatch(/AMD Ryzen 9 7950X3D: El rey de los videojuegos/i);
-      expect(container.textContent).toMatch(/Guía completa para armar tu primer PC Gamer/i);
-      done();
-    }, 0);
+    expect(await screen.findByText(/¡Revisa los nuevos y alucinantes lanzamientos en el Nintendo Direct!/i)).toBeDefined();
+    expect(screen.getByText(/¡Descuento del 15% en PCs Gamers Armados!/i)).toBeDefined();
+    expect(screen.getByText(/AMD Ryzen 9 7950X3D: El rey de los videojuegos/i)).toBeDefined();
+    expect(screen.getByText(/Guía completa para armar tu primer PC Gamer/i)).toBeDefined();
   });
 
-  it('debe renderizar todos los botones "Leer más"', (done) => {
-    act(() => {
-      createRoot(container).render(
-        <MemoryRouter>
-          <BlogPage />
-        </MemoryRouter>
-      );
-    });
+  it('debe renderizar todos los botones "Leer más"', async () => {
+    const { container } = render(
+      <MemoryRouter>
+        <BlogPage />
+      </MemoryRouter>
+    );
 
-    setTimeout(() => {
-      const readMoreButtons = Array.from(container.querySelectorAll('button')).filter(
-        btn => /Leer más/i.test(btn.textContent)
-      );
-      expect(readMoreButtons.length).toBe(12);
-      done();
-    }, 0);
+    const readMoreButtons = Array.from(container.querySelectorAll('button')).filter(
+      btn => /Leer más/i.test(btn.textContent)
+    );
+    expect(readMoreButtons.length).toBe(12);
   });
+
 });

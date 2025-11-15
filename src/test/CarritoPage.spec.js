@@ -1,155 +1,108 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { act } from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { describe, it, expect, vi } from 'vitest';
 import Carrito from '../components/carrito';
 
+
 const mockPropsEmpty = {
-    cartItems: [],
-    subtotal: 0,
-    costoEnvio: 0,
-    totalPagar: 0,
-    finalizarCompra: jasmine.createSpy('finalizarCompra'),
-    vaciarCarrito: jasmine.createSpy('vaciarCarrito'),
-    removeItem: jasmine.createSpy('removeItem'),
-    updateQuantity: jasmine.createSpy('updateQuantity'),
-    purchaseMessage: null,
-    };
+cartItems: [],
+subtotal: 0,
+costoEnvio: 0,
+totalPagar: 0,
+finalizarCompra: vi.fn(),
+vaciarCarrito: vi.fn(),
+removeItem: vi.fn(),
+updateQuantity: vi.fn(),
+purchaseMessage: null,
+};
 
-    const mockPropsFilled = {
+const mockPropsFilled = {
+...mockPropsEmpty,
+cartItems: [{ id: 99, name: 'Producto Testeado', price: 100000, quantity: 2 }],
+subtotal: 200000,
+costoEnvio: 5000,
+totalPagar: 205000,
+};
+
+describe('Componente Carrito', () => {
+
+it('debe renderizar el componente con el carrito vacío por defecto', () => {
+    render(<Carrito {...mockPropsEmpty} />, { wrapper: MemoryRouter });
+
+    expect(screen.getByText(/Tu carrito está vacío/i)).toBeDefined();
+    expect(screen.getByText(/Subtotal:/i)).toBeDefined();
+    expect(screen.getByText('0')).toBeDefined();
+
+    const finalizarButton = screen.getByRole('button', { name: /Finalizar Compra/i });
+    expect(finalizarButton).toBeDisabled();
+});
+
+it('debe renderizar el ítem de prueba y los totales correctamente (Estado Lleno)', () => {
+    render(<Carrito {...mockPropsFilled} />, { wrapper: MemoryRouter });
+
+    expect(screen.getByText(/Producto Testeado/i)).toBeDefined();
+    expect(screen.getByText('205000')).toBeDefined();
+
+    const finalizarButton = screen.getByRole('button', { name: /Finalizar Compra/i });
+    expect(finalizarButton).toBeEnabled();
+});
+
+it('debe llamar a la función vaciarCarrito al hacer clic', () => {
+    render(<Carrito {...mockPropsFilled} />, { wrapper: MemoryRouter });
+
+    const vaciarButton = screen.getByText(/Vaciar Carrito/i);
+    fireEvent.click(vaciarButton);
+
+    expect(mockPropsFilled.vaciarCarrito).toHaveBeenCalled();
+});
+
+it('debe llamar a la función finalizarCompra al hacer clic', () => {
+    render(<Carrito {...mockPropsFilled} />, { wrapper: MemoryRouter });
+
+    const finalizarButton = screen.getByText(/Finalizar Compra/i);
+    fireEvent.click(finalizarButton);
+
+    expect(mockPropsFilled.finalizarCompra).toHaveBeenCalled();
+});
+
+it('debe llamar a updateQuantity con la nueva cantidad al hacer clic en el botón "+"', () => {
+    render(<Carrito {...mockPropsFilled} />, { wrapper: MemoryRouter });
+
+    const plusButton = screen.getByText('+');
+    fireEvent.click(plusButton);
+
+    expect(mockPropsFilled.updateQuantity).toHaveBeenCalledWith(99, 3);
+});
+
+it('debe llamar a updateQuantity con la nueva cantidad al hacer clic en el botón "-"', () => {
+    render(<Carrito {...mockPropsFilled} />, { wrapper: MemoryRouter });
+
+    const minusButton = screen.getByText('-');
+    fireEvent.click(minusButton);
+
+    expect(mockPropsFilled.updateQuantity).toHaveBeenCalledWith(99, 1);
+});
+
+it('el botón "-" debe estar deshabilitado cuando la cantidad es 1', () => {
+    const propsQtyOne = {
     ...mockPropsEmpty,
-    cartItems: [{ id: 99, name: 'Producto Testeado', price: 100000, quantity: 2 }],
-    subtotal: 200000,
-    costoEnvio: 5000,
-    totalPagar: 205000,
+    cartItems: [{ id: 99, name: 'Producto Testeado', price: 100000, quantity: 1 }],
     };
 
-    let container = null;
+    render(<Carrito {...propsQtyOne} />, { wrapper: MemoryRouter });
 
-    beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-    });
+    const minusButton = screen.getByText('-');
+    expect(minusButton).toBeDisabled();
+});
 
-    afterEach(() => {
-    document.body.removeChild(container);
-    container = null;
-    });
+it('debe llamar a removeItem con el ID correcto al hacer clic en el botón de eliminar ("X")', () => {
+    render(<Carrito {...mockPropsFilled} />, { wrapper: MemoryRouter });
 
-    describe('Componente Carrito', () => {
+    const removeButton = screen.getByText(/remover|eliminar|x/i);
+    fireEvent.click(removeButton);
 
-    it('debe renderizar el componente con el carrito vacío por defecto', (done) => {
-        act(() => {
-        createRoot(container).render(<Carrito {...mockPropsEmpty} />);
-        });
-
-        setTimeout(() => {
-        expect(container.textContent).toMatch(/Tu carrito está vacío/i);
-        expect(container.textContent).toMatch(/Subtotal:/i);
-        expect(container.textContent).toMatch(/0/i);
-
-        const button = container.querySelector('button[aria-label="Finalizar Compra"], button:contains("Finalizar Compra")'); 
-        expect(button.disabled).toBe(true);
-
-        done();
-        }, 0);
-    });
-
-    it('debe renderizar el ítem de prueba y los totales correctamente (Estado Lleno)', (done) => {
-        act(() => {
-        createRoot(container).render(<Carrito {...mockPropsFilled} />);
-        });
-
-        setTimeout(() => {
-        expect(container.textContent).toMatch(/Producto Testeado/i);
-        expect(container.textContent).toMatch(/205000/i);
-
-        const button = container.querySelector('button[aria-label="Finalizar Compra"], button:contains("Finalizar Compra")');
-        expect(button.disabled).toBe(false);
-
-        done();
-        }, 0);
-    });
-
-    it('debe llamar a la función vaciarCarrito al hacer clic', (done) => {
-        act(() => {
-        createRoot(container).render(<Carrito {...mockPropsFilled} />);
-        });
-
-        setTimeout(() => {
-        const vaciarButton = Array.from(container.querySelectorAll('button')).find(btn => /Vaciar Carrito/i.test(btn.textContent));
-        vaciarButton.click();
-        expect(mockPropsFilled.vaciarCarrito).toHaveBeenCalled();
-        done();
-        }, 0);
-    });
-
-    it('debe llamar a la función finalizarCompra al hacer clic', (done) => {
-        act(() => {
-        createRoot(container).render(<Carrito {...mockPropsFilled} />);
-        });
-
-        setTimeout(() => {
-        const finalizarButton = Array.from(container.querySelectorAll('button')).find(btn => /Finalizar Compra/i.test(btn.textContent));
-        finalizarButton.click();
-        expect(mockPropsFilled.finalizarCompra).toHaveBeenCalled();
-        done();
-        }, 0);
-    });
-
-    it('debe llamar a updateQuantity con la nueva cantidad al hacer clic en el botón "+"', (done) => {
-        act(() => {
-        createRoot(container).render(<Carrito {...mockPropsFilled} />);
-        });
-
-        setTimeout(() => {
-        const plusButton = Array.from(container.querySelectorAll('button')).find(btn => /\+/.test(btn.textContent));
-        plusButton.click();
-        expect(mockPropsFilled.updateQuantity).toHaveBeenCalledWith(99, 3);
-        done();
-        }, 0);
-    });
-
-    it('debe llamar a updateQuantity con la nueva cantidad al hacer clic en el botón "-"', (done) => {
-        act(() => {
-        createRoot(container).render(<Carrito {...mockPropsFilled} />);
-        });
-
-        setTimeout(() => {
-        const minusButton = Array.from(container.querySelectorAll('button')).find(btn => /^-/.test(btn.textContent));
-        minusButton.click();
-        expect(mockPropsFilled.updateQuantity).toHaveBeenCalledWith(99, 1);
-        done();
-        }, 0);
-    });
-
-    it('el botón "-" debe estar deshabilitado cuando la cantidad es 1', (done) => {
-        const propsQtyOne = {
-        ...mockPropsEmpty,
-        cartItems: [{ id: 99, name: 'Producto Testeado', price: 100000, quantity: 1 }],
-        };
-
-        act(() => {
-        createRoot(container).render(<Carrito {...propsQtyOne} />);
-        });
-
-        setTimeout(() => {
-        const minusButton = Array.from(container.querySelectorAll('button')).find(btn => /^-/.test(btn.textContent));
-        expect(minusButton.disabled).toBe(true);
-        done();
-        }, 0);
-    });
-
-    it('debe llamar a removeItem con el ID correcto al hacer clic en el botón de eliminar ("X")', (done) => {
-        act(() => {
-        createRoot(container).render(<Carrito {...mockPropsFilled} />);
-        });
-
-        setTimeout(() => {
-        const removeButton = Array.from(container.querySelectorAll('button')).find(btn => /remover|eliminar|x/i.test(btn.textContent));
-        removeButton.click();
-        expect(mockPropsFilled.removeItem).toHaveBeenCalledWith(99);
-        done();
-        }, 0);
+    expect(mockPropsFilled.removeItem).toHaveBeenCalledWith(99);
     });
 
 });

@@ -1,41 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { describe, it, expect } from 'vitest';
 import Productos from './components/Productos';
 
 describe('Componente Productos', () => {
-    let container;
 
-    beforeEach(() => {
-        container = document.createElement('div');
-        document.body.appendChild(container);
-    });
-
-    afterEach(() => {
-        ReactDOM.unmountComponentAtNode(container);
-        document.body.removeChild(container);
-        container = null;
-    });
-
-    it('renderiza correctamente el título y los productos', (done) => {
-        ReactDOM.render(
+    it('renderiza correctamente el título y los productos', () => {
+        render(
         <MemoryRouter>
             <Productos />
-        </MemoryRouter>,
-        container
+        </MemoryRouter>
         );
 
-        setTimeout(() => {
-        const h1 = container.querySelector('h1');
-        expect(h1).not.toBeNull();
-        expect(h1.textContent).toBe('Productos');
+    // Verifica que el título exista y tenga el texto esperado
+    const h1 = screen.getByRole('heading', { level: 1 });
+    expect(h1).toBeDefined();
+    expect(h1.textContent).toBe('Productos');
 
-        const cards = container.querySelectorAll('.card');
-        expect(cards.length).toBeGreaterThan(0);
+    // Verifica que haya tarjetas de productos con la clase 'card'
+    const cards = screen.getAllByClass('card'); 
+    expect(cards.length).toBeGreaterThan(0);
 
-        expect(cards[0].textContent).toContain('CLP');
-
-        done();
-        }, 0);
+    // verifica que el contenido contenga clp
+    expect(cards[0].textContent).toContain('CLP');
     });
+
 });

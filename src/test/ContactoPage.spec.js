@@ -1,117 +1,76 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { act } from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import ContactoPage from '../pages/ContactoPage';
 
-let container = null;
-
-beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
+describe('ContactoPage', () => {
+    beforeEach(() => {
+        vi.spyOn(console, 'log').mockImplementation(() => {});
     });
 
     afterEach(() => {
-    document.body.removeChild(container);
-    container = null;
+        vi.restoreAllMocks();
     });
 
-    describe('ContactoPage', () => {
+    it('renderiza el título, formulario e info de contacto', () => {
+        render(<ContactoPage />, { wrapper: MemoryRouter });
 
-    it('renderiza el título, formulario e info de contacto', (done) => {
-        act(() => {
-        createRoot(container).render(<ContactoPage />);
-        });
-
-        setTimeout(() => {
-        expect(container.textContent).toMatch(/Contáctanos - Soporte Rápido/i);
-        expect(container.querySelector('button').textContent).toMatch(/Enviar Mensaje/i);
-        expect(container.querySelector('input[name="nombre"]')).toBeTruthy();
-        expect(container.textContent).toMatch(/\+56 9 1234 5678/i);
-        done();
-        }, 0);
+        expect(screen.getByText(/Contáctanos - Soporte Rápido/i)).toBeDefined();
+        expect(screen.getByRole('button')).toHaveTextContent(/Enviar Mensaje/i);
+        expect(screen.getByRole('textbox', { name: /nombre/i })).toBeDefined();
+        expect(screen.getByText(/\+56 9 1234 5678/i)).toBeDefined();
     });
 
-    it('actualiza el input Nombre al escribir', (done) => {
-        act(() => {
-        createRoot(container).render(<ContactoPage />);
-        });
+    it('actualiza el input Nombre al escribir', () => {
+        render(<ContactoPage />, { wrapper: MemoryRouter });
 
-        setTimeout(() => {
-        const input = container.querySelector('input[name="nombre"]');
-        input.value = 'Jane Doe';
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-
+        const input = screen.getByRole('textbox', { name: /nombre/i });
+        fireEvent.change(input, { target: { value: 'Jane Doe' } });
         expect(input.value).toBe('Jane Doe');
-        done();
-        }, 0);
     });
 
-    it('muestra errores de validación si se envía vacío', (done) => {
-        act(() => {
-        createRoot(container).render(<ContactoPage />);
-        });
+    it('muestra errores de validación si se envía vacío', () => {
+        render(<ContactoPage />, { wrapper: MemoryRouter });
 
-        setTimeout(() => {
-        container.querySelector('button').click();
+        const button = screen.getByRole('button');
+        fireEvent.click(button);
 
-        expect(container.textContent).toMatch(/El nombre es obligatorio./i);
-        expect(container.textContent).toMatch(/Debe ingresar un email válido./i);
-        expect(container.textContent).toMatch(/El mensaje es obligatorio./i);
-        done();
-        }, 100);
+        expect(screen.getByText(/El nombre es obligatorio./i)).toBeDefined();
+        expect(screen.getByText(/Debe ingresar un email válido./i)).toBeDefined();
+        expect(screen.getByText(/El mensaje es obligatorio./i)).toBeDefined();
     });
 
-    it('muestra error si se introduce email inválido', (done) => {
-        act(() => {
-        createRoot(container).render(<ContactoPage />);
-        });
+    it('muestra error si se introduce email inválido', () => {
+        render(<ContactoPage />, { wrapper: MemoryRouter });
 
-        setTimeout(() => {
-        const input = container.querySelector('input[name="email"]');
-        input.value = 'test@invalido';
-        input.dispatchEvent(new Event('input', { bubbles: true }));
-        container.querySelector('button').click();
+        const inputEmail = screen.getByRole('textbox', { name: /email/i });
+        fireEvent.change(inputEmail, { target: { value: 'test@invalido' } });
 
-        expect(container.textContent).toMatch(/Debe ingresar un email válido./i);
-        done();
-        }, 100);
+        const button = screen.getByRole('button');
+        fireEvent.click(button);
+
+        expect(screen.getByText(/Debe ingresar un email válido./i)).toBeDefined();
     });
 
-    it('simula envío exitoso, muestra mensaje y resetea formulario', (done) => {
-        spyOn(console, 'log');
+    it('simula envío exitoso, muestra mensaje y resetea formulario', () => {
+    render(<ContactoPage />, { wrapper: MemoryRouter });
 
-        act(() => {
-        createRoot(container).render(<ContactoPage />);
-        });
+    fireEvent.change(screen.getByRole('textbox', { name: /nombre/i }), { target: { value: 'Gamer Pro' } });
+    fireEvent.change(screen.getByRole('textbox', { name: /email/i }), { target: { value: 'gamer@levelup.cl' } });
+    fireEvent.change(screen.getByRole('textbox', { name: /asunto/i }), { target: { value: 'Pregunta de stock' } });
+    fireEvent.change(screen.getByRole('textbox', { name: /mensaje/i }), { target: { value: 'Necesito saber si tienen...' } });
 
-        setTimeout(() => {
-        container.querySelector('input[name="nombre"]').value = 'Gamer Pro';
-        container.querySelector('input[name="nombre"]').dispatchEvent(new Event('input', { bubbles: true }));
+    fireEvent.click(screen.getByRole('button'));
 
-        container.querySelector('input[name="email"]').value = 'gamer@levelup.cl';
-        container.querySelector('input[name="email"]').dispatchEvent(new Event('input', { bubbles: true }));
-
-        container.querySelector('input[name="asunto"]').value = 'Pregunta de stock';
-        container.querySelector('input[name="asunto"]').dispatchEvent(new Event('input', { bubbles: true }));
-
-        container.querySelector('textarea[name="mensaje"]').value = 'Necesito saber si tienen...';
-        container.querySelector('textarea[name="mensaje"]').dispatchEvent(new Event('input', { bubbles: true }));
-
-        container.querySelector('button').click();
-
-        expect(console.log).toHaveBeenCalledWith('Datos enviados:', jasmine.objectContaining({
-            name: 'Gamer Pro',
-            email: 'gamer@levelup.cl',
-            subject: 'Pregunta de stock',
-            message: 'Necesito saber si tienen...',
+    expect(console.log).toHaveBeenCalledWith('Datos enviados:', expect.objectContaining({
+        name: 'Gamer Pro',
+        email: 'gamer@levelup.cl',
+        subject: 'Pregunta de stock',
+        message: 'Necesito saber si tienen...',
         }));
 
-        expect(container.textContent).toMatch(/¡Mensaje Enviado!/i);
-        expect(container.querySelector('input[name="nombre"]').value).toBe('');
-
-        console.log.calls.reset();
-        done();
-        }, 200);
+        expect(screen.getByRole('textbox', { name: /nombre/i }).value).toBe('');
+        expect(screen.getByText(/¡Mensaje Enviado!/i)).toBeDefined();
     });
-
 });
