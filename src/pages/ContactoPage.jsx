@@ -91,6 +91,106 @@ function ContactoPage() {
 
     return (
         <Container className="my-5 p-4 border-box">
+            <h1 className="text-center highlight-text mb-4">Contáctanos - Soporte Rápido</h1>
+            <p className="text-center text-light mb-5">
+                ¿Tienes preguntas sobre un pedido, una consola o un juego retro? Nuestro equipo de soporte está listo.
+            </p>
+
+            <Row className="justify-content-center">
+                <Col lg={5} className="mb-4">
+                    <h2 className="text-secondary mb-4">Nuestra Información</h2>
+                    {contactInfo.map((item, index) => (
+                        <Card key={index} className="bg-dark text-light border-secondary mb-3 p-3">
+                            <div className="d-flex align-items-center">
+                                <span style={{ fontSize: '1.5rem', marginRight: '1rem' }}>{item.icon}</span>
+                                <div>
+                                    <Card.Title className="text-warning mb-0">{item.title}</Card.Title>
+                                    <Card.Text>{item.text}</Card.Text>
+                                </div>
+                            </div>
+                        </Card>
+                    ))}
+
+                    <h2 className="text-secondary mt-5 mb-3">Síguenos</h2>
+                    <div className="d-flex social-icons">
+                        <span className="social-icon">📘 Facebook</span>
+                        <span className="social-icon">📸 Instagram</span>
+                        <span className="social-icon">🐦 X (Twitter)</span>
+                        <span className="social-icon">🕹️ Discord</span>
+                        <span className="social-icon">🎥 YouTube</span>
+                        <span className="social-icon">👾 Twitch</span>
+                    </div>
+                </Col>
+
+                <Col lg={7}>
+                    <Card className="bg-dark text-light border-primary p-4 shadow-lg">
+                        <Card.Body>
+                            <Card.Title className="text-primary mb-4">Envíanos un Mensaje</Card.Title>
+                            <Form onSubmit={handleSubmit}>
+
+                                <Form.Group className="mb-3" controlId="formName">
+                                    <Form.Label>Nombre</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Tu nombre completo"
+                                        name="name"
+                                        value={formData.name}
+                                        onChange={handleChange}
+                                        isInvalid={!!errors.name}
+                                    />
+                                    <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                                </Form.Group>
+
+                                <Form.Group className="mb-3" controlId="formEmail">
+                                    <Form.Label>Email</Form.Label>
+                                    <Form.Control
+                                        type="email"
+                                        placeholder="ejemplo@correo.com"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        isInvalid={!!errors.email}
+                                    />
+                                    <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                                </Form.Group>
+                                
+                                <Form.Group className="mb-3" controlId="formSubject">
+                                    <Form.Label>Asunto</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Título de tu consulta"
+                                        name="subject"
+                                        value={formData.subject}
+                                        onChange={handleChange}
+                                        isInvalid={!!errors.subject}
+                                    />
+                                    <Form.Control.Feedback type="invalid">{errors.subject}</Form.Control.Feedback>
+                                </Form.Group>
+
+                                <Form.Group className="mb-4" controlId="formMessage">
+                                    <Form.Label>Mensaje</Form.Label>
+                                    <Form.Control
+                                        as="textarea"
+                                        rows={4}
+                                        placeholder="Escribe tu consulta aquí..."
+                                        name="message"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        isInvalid={!!errors.message}
+                                    />
+                                    <Form.Control.Feedback type="invalid">{errors.message}</Form.Control.Feedback>
+                                </Form.Group>
+
+                                <div className="d-grid gap-2">
+                                    <Button variant="primary" type="submit" className="button-primary">
+                                        Enviar Mensaje
+                                    </Button>
+                                </div>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Col>
+            </Row>
 
             <Toast 
                 onClose={() => setShowToast(false)} 
