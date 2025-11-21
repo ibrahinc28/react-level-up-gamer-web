@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import Carrito from '../components/carrito';
+import axios from 'axios';
 
 const getCartFromLocalStorage = () => {
     try {
@@ -20,7 +21,6 @@ const saveCartToLocalStorage = (cart) => {
 };
 
 const CarritoPage = () => {
-
     const [cartItems, setCartItems] = useState(getCartFromLocalStorage());
     const [purchaseMessage, setPurchaseMessage] = useState('');
 
@@ -31,14 +31,13 @@ const CarritoPage = () => {
     const removeItem = (id) => {
         const newCart = cartItems.filter(item => item.id !== id);
         setCartItems(newCart);
-        setPurchaseMessage(`❌ Producto eliminado correctamente.`);
+        setPurchaseMessage('❌ Producto eliminado correctamente.');
     };
 
     const updateQuantity = (id, quantity) => {
         if (quantity < 1) return;
-
         const newCart = cartItems.map(item =>
-            item.id === id ? { ...item, quantity: quantity } : item
+            item.id === id ? { ...item, quantity } : item
         );
         setCartItems(newCart);
         setPurchaseMessage('');
@@ -46,21 +45,38 @@ const CarritoPage = () => {
 
     const vaciarCarrito = () => {
         setCartItems([]);
-        setPurchaseMessage("✅ ¡El carrito ha sido vaciado completamente!");
+        setPurchaseMessage('✅ ¡El carrito ha sido vaciado completamente!');
     };
 
-    const finalizarCompra = () => {
+    const finalizarCompra = async () => {
+        try {
+            const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const costoEnvio = subtotal > 100000 ? 0 : 5000;
+            const totalPagar = subtotal + costoEnvio;
 
-        setCartItems([]);
-        setPurchaseMessage("✅ ¡Gracias por tu compra! Tu pedido ha sido procesado.");
+            const carritoParaEnviar = {
+                itemsJson: JSON.stringify(cartItems),
+                subtotal,
+                costoEnvio,
+                totalPagar
+            };
+
+            await axios.post('http://localhost:8080/api/carrito', carritoParaEnviar);
+
+            setCartItems([]);
+            setPurchaseMessage('✅ ¡Gracias por tu compra! Tu pedido ha sido procesado.');
+        } catch (error) {
+            console.error('Error al enviar el carrito al backend:', error);
+            setPurchaseMessage('❌ Hubo un error al procesar la compra.');
+        }
     };
 
-    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const costoEnvio = subtotal > 100000 ? 0 : 5000; 
+    const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const costoEnvio = subtotal > 100000 ? 0 : 5000;
     const totalPagar = subtotal + costoEnvio;
 
     return (
-        <Carrito 
+        <Carrito
             cartItems={cartItems}
             subtotal={subtotal}
             costoEnvio={costoEnvio}
