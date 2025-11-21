@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import BlogCard from '../components/BlogCard';
-import axios from 'axios';
 import articulo1 from '../images/articulo1.png';
 import articulo2 from '../images/articulo2.png';
 import consola from '../images/consola-pc.png';
@@ -55,8 +54,10 @@ function BlogPage() {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const res = await axios.get('http://localhost:8080/api/blog');
-                setArticlesFromBackend(res.data);
+                const res = await fetch('http://localhost:8080/api/blog');
+                if (!res.ok) throw new Error('Error fetching blog articles');
+                const data = await res.json();
+                setArticlesFromBackend(data);
             } catch (error) {
                 console.error('Error fetching blog articles:', error);
             }
