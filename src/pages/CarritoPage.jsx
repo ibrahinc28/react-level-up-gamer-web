@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';
 import Carrito from '../components/carrito';
 import axios from 'axios';
 
+// Función para obtener el carrito del almacenamiento local
 const getCartFromLocalStorage = () => {
     try {
         const storedCart = localStorage.getItem('shoppingCart');
@@ -12,6 +13,7 @@ const getCartFromLocalStorage = () => {
     }
 };
 
+// Función para guardar el carrito en el almacenamiento local
 const saveCartToLocalStorage = (cart) => {
     try {
         localStorage.setItem('shoppingCart', JSON.stringify(cart));
@@ -25,6 +27,7 @@ const CarritoPage = () => {
     const [purchaseMessage, setPurchaseMessage] = useState('');
 
     useEffect(() => {
+        // Sincroniza el estado del carrito con el almacenamiento local cada vez que cambia
         saveCartToLocalStorage(cartItems);
     }, [cartItems]);
 
@@ -37,7 +40,7 @@ const CarritoPage = () => {
     const updateQuantity = (id, quantity) => {
         if (quantity < 1) return;
         const newCart = cartItems.map(item =>
-            item.id === id ? { ...item, quantity } : item
+            item.id === id ? { ...item, quantity: quantity } : item
         );
         setCartItems(newCart);
         setPurchaseMessage('');
@@ -50,7 +53,8 @@ const CarritoPage = () => {
 
     const finalizarCompra = async () => {
         try {
-            const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            // CORRECCIÓN CLAVE 1: Protección contra precios faltantes (usa 0 si el precio es undefined)
+            const subtotal = cartItems.reduce((sum, item) => sum + ((item.price || 0) * item.quantity), 0);
             const costoEnvio = subtotal > 100000 ? 0 : 5000;
             const totalPagar = subtotal + costoEnvio;
 
@@ -71,7 +75,8 @@ const CarritoPage = () => {
         }
     };
 
-    const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    // CORRECCIÓN CLAVE 2: Protección contra precios faltantes para la vista
+    const subtotal = cartItems.reduce((sum, item) => sum + ((item.price || 0) * item.quantity), 0);
     const costoEnvio = subtotal > 100000 ? 0 : 5000;
     const totalPagar = subtotal + costoEnvio;
 
