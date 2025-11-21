@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Carrito from '../components/carrito';
-import axios from 'axios';
 
 const getCartFromLocalStorage = () => {
     try {
@@ -61,7 +60,13 @@ const CarritoPage = () => {
                 totalPagar
             };
 
-            await axios.post('http://localhost:8080/api/carrito', carritoParaEnviar);
+            const response = await fetch('http://localhost:8080/api/carrito', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(carritoParaEnviar)
+            });
+
+            if (!response.ok) throw new Error('Error al procesar la compra');
 
             setCartItems([]);
             setPurchaseMessage('✅ ¡Gracias por tu compra! Tu pedido ha sido procesado.');
