@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import Carrito from '../components/carrito';
+import Productos from '../components/Productos';
 
 const getCartFromLocalStorage = () => {
     try {
@@ -19,69 +20,58 @@ const saveCartToLocalStorage = (cart) => {
     }
 };
 
-const CarritoPage = () => {
-    const [cartItems, setCartItems] = useState(getCartFromLocalStorage());
+const CarritoPage = ({ cartItems, setCartItems }) => {
+
     const [purchaseMessage, setPurchaseMessage] = useState('');
+    const [productos, setProductos] = useState([]);
 
     useEffect(() => {
         saveCartToLocalStorage(cartItems);
     }, [cartItems]);
 
-    const removeItem = (id) => {
-        const newCart = cartItems.filter(item => item.id !== id);
-        setCartItems(newCart);
-        setPurchaseMessage('❌ Producto eliminado correctamente.');
+    useEffect(() => {
+        fetch('http://localhost:8080/api/productos')
+            .then(response => response.json())
+            .then(data => setProductos(data))
+            .catch(error => console.error("Error al cargar productos:", error));
+    }, []);
+  
+const removeItem = (codigo) => {
+    
+    setCartItems(prevItems => prevItems.filter(item => item.codigo !== codigo));
+    setPurchaseMessage(`❌ Producto eliminado correctamente.`);
     };
 
-    const updateQuantity = (id, quantity) => {
-        if (quantity < 1) return;
-        const newCart = cartItems.map(item =>
-            item.id === id ? { ...item, quantity: quantity } : item
-        );
-        setCartItems(newCart);
-        setPurchaseMessage('');
+
+const updateQuantity = (codigo, quantity) => {
+    if (quantity < 1) return;
+    setCartItems(prevItems =>
+        prevItems.map(item =>
+        item.codigo === codigo ? { ...item, quantity: quantity } : item
+        )
+    );
+    setPurchaseMessage('');
     };
 
-    const vaciarCarrito = () => {
+
+const vaciarCarrito = () => {
+    setCartItems([]);
+    setPurchaseMessage("✅ ¡El carrito ha sido vaciado completamente!");
+    };
+
+const finalizarCompra = () => {
+
         setCartItems([]);
-        setPurchaseMessage('✅ ¡El carrito ha sido vaciado completamente!');
+        setPurchaseMessage("✅ ¡Gracias por tu compra! Tu pedido ha sido procesado.");
     };
 
-    const finalizarCompra = async () => {
-        try {
-            const subtotal = cartItems.reduce((sum, item) => sum + ((item.price || 0) * item.quantity), 0);
-            const costoEnvio = subtotal > 100000 ? 0 : 5000;
-            const totalPagar = subtotal + costoEnvio;
-
-            const carritoParaEnviar = {
-                itemsJson: JSON.stringify(cartItems),
-                subtotal,
-                costoEnvio,
-                totalPagar
-            };
-
-            const response = await fetch('http://localhost:8080/api/carrito', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(carritoParaEnviar)
-            });
-
-            if (!response.ok) throw new Error('Error al procesar la compra');
-
-            setCartItems([]);
-            setPurchaseMessage('✅ ¡Gracias por tu compra! Tu pedido ha sido procesado.');
-        } catch (error) {
-            console.error('Error al enviar el carrito al backend:', error);
-            setPurchaseMessage('❌ Hubo un error al procesar la compra.');
-        }
-    };
-
-    const subtotal = cartItems.reduce((sum, item) => sum + ((item.price || 0) * item.quantity), 0);
-    const costoEnvio = subtotal > 100000 ? 0 : 5000;
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.precio * item.quantity), 0);
+    const costoEnvio = subtotal > 100000 ? 0 : 5000; 
     const totalPagar = subtotal + costoEnvio;
 
     return (
-        <Carrito
+        
+        <Carrito 
             cartItems={cartItems}
             subtotal={subtotal}
             costoEnvio={costoEnvio}
@@ -92,6 +82,7 @@ const CarritoPage = () => {
             updateQuantity={updateQuantity}
             purchaseMessage={purchaseMessage}
         />
+   
     );
 };
 
