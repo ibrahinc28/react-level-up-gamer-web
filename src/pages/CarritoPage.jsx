@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react';  
 import Carrito from '../components/carrito';
 import Productos from '../components/Productos';
 
@@ -35,32 +35,41 @@ const CarritoPage = ({ cartItems, setCartItems }) => {
             .then(data => setProductos(data))
             .catch(error => console.error("Error al cargar productos:", error));
     }, []);
-  
-const removeItem = (codigo) => {
-    
-    setCartItems(prevItems => prevItems.filter(item => item.codigo !== codigo));
-    setPurchaseMessage(`❌ Producto eliminado correctamente.`);
+
+    const addItemToCart = (product) => {
+        setCartItems(prevItems => {
+            const itemExists = prevItems.find(item => item.codigo === product.codigo);
+            if (itemExists) {
+                return prevItems.map(item =>
+                    item.codigo === product.codigo ? { ...item, quantity: item.quantity + 1 } : item
+                );
+            }
+            return [...prevItems, { ...product, quantity: 1 }];
+        });
+        setPurchaseMessage('');
     };
 
-
-const updateQuantity = (codigo, quantity) => {
-    if (quantity < 1) return;
-    setCartItems(prevItems =>
-        prevItems.map(item =>
-        item.codigo === codigo ? { ...item, quantity: quantity } : item
-        )
-    );
-    setPurchaseMessage('');
+    const removeItem = (codigo) => {
+        setCartItems(prevItems => prevItems.filter(item => item.codigo !== codigo));
+        setPurchaseMessage(`❌ Producto eliminado correctamente.`);
     };
 
-
-const vaciarCarrito = () => {
-    setCartItems([]);
-    setPurchaseMessage("✅ ¡El carrito ha sido vaciado completamente!");
+    const updateQuantity = (codigo, quantity) => {
+        if (quantity < 1) return;
+        setCartItems(prevItems =>
+            prevItems.map(item =>
+                item.codigo === codigo ? { ...item, quantity: quantity } : item
+            )
+        );
+        setPurchaseMessage('');
     };
 
-const finalizarCompra = () => {
+    const vaciarCarrito = () => {
+        setCartItems([]);
+        setPurchaseMessage("✅ ¡El carrito ha sido vaciado completamente!");
+    };
 
+    const finalizarCompra = () => {
         setCartItems([]);
         setPurchaseMessage("✅ ¡Gracias por tu compra! Tu pedido ha sido procesado.");
     };
@@ -70,19 +79,21 @@ const finalizarCompra = () => {
     const totalPagar = subtotal + costoEnvio;
 
     return (
-        
-        <Carrito 
-            cartItems={cartItems}
-            subtotal={subtotal}
-            costoEnvio={costoEnvio}
-            totalPagar={totalPagar}
-            finalizarCompra={finalizarCompra}
-            vaciarCarrito={vaciarCarrito}
-            removeItem={removeItem}
-            updateQuantity={updateQuantity}
-            purchaseMessage={purchaseMessage}
-        />
-   
+        <>
+            <Productos productos={productos} addItemToCart={addItemToCart} />
+
+            <Carrito 
+                cartItems={cartItems}
+                subtotal={subtotal}
+                costoEnvio={costoEnvio}
+                totalPagar={totalPagar}
+                finalizarCompra={finalizarCompra}
+                vaciarCarrito={vaciarCarrito}
+                removeItem={removeItem}
+                updateQuantity={updateQuantity}
+                purchaseMessage={purchaseMessage}
+            />
+        </>
     );
 };
 
