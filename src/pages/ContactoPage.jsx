@@ -14,6 +14,7 @@ function ContactoPage() {
     const [formData, setFormData] = useState(initialFormData);
     const [errors, setErrors] = useState({});
     const [showToast, setShowToast] = useState(false);
+    const [showErrorToast, setShowErrorToast] = useState(false);
 
     const handleChange = useCallback((e) => {
         const { name, value } = e.target;
@@ -58,13 +59,26 @@ function ContactoPage() {
         return isValid;
     }, [formData]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        if (validateForm()) {
-            console.log('Datos enviados:', formData);
-            setShowToast(true);
-            setFormData(initialFormData);
+        if (!validateForm()) return;
+
+        try {
+            const response = await fetch('http://localhost:8080/api/contactos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData),
+            });
+
+            if (response.ok) {
+                setShowToast(true);
+                setFormData(initialFormData);
+            } else {
+                setShowErrorToast(true);
+            }
+        } catch (error) {
+            console.error('Error al enviar mensaje:', error);
+            setShowErrorToast(true);
         }
     };
 
@@ -76,18 +90,17 @@ function ContactoPage() {
     ];
 
     return (
-        <Container className="my-5 p-4 **border-box**">
-            <h1 className="text-center **highlight-text** mb-4">Contáctanos - Soporte Rápido</h1>
+        <Container className="my-5 p-4 border-box">
+            <h1 className="text-center highlight-text mb-4">Contáctanos - Soporte Rápido</h1>
             <p className="text-center text-light mb-5">
                 ¿Tienes preguntas sobre un pedido, una consola o un juego retro? Nuestro equipo de soporte está listo.
             </p>
 
             <Row className="justify-content-center">
-                
                 <Col lg={5} className="mb-4">
-                    <h2 className="**text-secondary** mb-4">Nuestra Información</h2>
+                    <h2 className="text-secondary mb-4">Nuestra Información</h2>
                     {contactInfo.map((item, index) => (
-                        <Card key={index} className="bg-dark text-light **border-secondary** mb-3 p-3">
+                        <Card key={index} className="bg-dark text-light border-secondary mb-3 p-3">
                             <div className="d-flex align-items-center">
                                 <span style={{ fontSize: '1.5rem', marginRight: '1rem' }}>{item.icon}</span>
                                 <div>
@@ -98,9 +111,8 @@ function ContactoPage() {
                         </Card>
                     ))}
 
-                    <h2 className="**text-secondary** mt-5 mb-3">Síguenos</h2>
+                    <h2 className="text-secondary mt-5 mb-3">Síguenos</h2>
                     <div className="d-flex social-icons">
-                        
                         <span className="social-icon">📘 Facebook</span>
                         <span className="social-icon">📸 Instagram</span>
                         <span className="social-icon">🐦 X (Twitter)</span>
@@ -111,9 +123,9 @@ function ContactoPage() {
                 </Col>
 
                 <Col lg={7}>
-                    <Card className="bg-dark text-light **border-primary** p-4 shadow-lg">
+                    <Card className="bg-dark text-light border-primary p-4 shadow-lg">
                         <Card.Body>
-                            <Card.Title className="**text-primary** mb-4">Envíanos un Mensaje</Card.Title>
+                            <Card.Title className="text-primary mb-4">Envíanos un Mensaje</Card.Title>
                             <Form onSubmit={handleSubmit}>
 
                                 <Form.Group className="mb-3" controlId="formName">
@@ -170,7 +182,7 @@ function ContactoPage() {
                                 </Form.Group>
 
                                 <div className="d-grid gap-2">
-                                    <Button variant="primary" type="submit" className="**button-primary**">
+                                    <Button variant="primary" type="submit" className="button-primary">
                                         Enviar Mensaje
                                     </Button>
                                 </div>
@@ -192,6 +204,21 @@ function ContactoPage() {
                 </Toast.Header>
                 <Toast.Body className="bg-dark text-light border-0">
                     Gracias por contactarnos. Responderemos pronto.
+                </Toast.Body>
+            </Toast>
+
+            <Toast 
+                onClose={() => setShowErrorToast(false)} 
+                show={showErrorToast} 
+                delay={4000} 
+                autohide
+                className="toast-custom"
+            >
+                <Toast.Header closeButton={false} className="bg-danger text-light border-0">
+                    <strong className="me-auto">¡Error!</strong>
+                </Toast.Header>
+                <Toast.Body className="bg-dark text-light border-0">
+                    No se pudo enviar el mensaje. Intenta nuevamente.
                 </Toast.Body>
             </Toast>
         </Container>
