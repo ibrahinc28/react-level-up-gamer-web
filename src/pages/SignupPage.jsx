@@ -1,5 +1,5 @@
 import React from 'react'
-import RegistrarFormulario from '../components/RegistrarFormulario.js'
+import RegistrarFormulario from '../components/RegistrarFormulario.jsx'
 
 function SignupPage() {
 

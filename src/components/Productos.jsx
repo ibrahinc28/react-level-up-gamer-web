@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { productos } from './ProductosData';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const API_URL = "http://localhost:8080/api/productos";
 
 function Productos({ addItemToCart }) {
+    const [productos, setProductos] = useState([]);
 
-return (
+    useEffect(() => {
+        axios.get(API_URL)
+        .then(response => {
+            setProductos(response.data); 
+        })
+        .catch(error => {
+            console.error("Error al obtener productos", error);
+        });
+    }, []); 
+
+    return (
         <div>
         <h1>Productos</h1>
         <div className="d-flex flex-wrap justify-content-around">
@@ -18,10 +30,9 @@ return (
                 </Link>
                 <Card.Body>
                 <Card.Title style={{ color: '#000', opacity: 1 }}>{producto.nombre}</Card.Title>
-                {/*<Card.Text style={{ color: '#000', opacity: 1 }}>{producto.descripcion}</Card.Text>*/}
                 <Card.Text style={{ color: '#000', opacity: 1 }}><strong>Precio: ${producto.precio.toLocaleString('es-CL')} CLP</strong></Card.Text>
                 <Button variant="primary"
-                onClick={() => addItemToCart(producto)}
+                    onClick={() => addItemToCart(producto)}
                 >
                     Agregar al carrito
                 </Button>
@@ -32,6 +43,5 @@ return (
         </div>
     );
 }
-
 
 export default Productos;
