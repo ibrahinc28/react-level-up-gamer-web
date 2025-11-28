@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';  
-import Carrito from '../components/carrito';
+import React, { useState, useEffect } from 'react';
+import Carrito from '../components/Carrito'; 
 import Productos from '../components/Productos';
 
 const getCartFromLocalStorage = () => {
@@ -20,10 +20,16 @@ const saveCartToLocalStorage = (cart) => {
     }
 };
 
+const getAuthToken = () => {
+    return localStorage.getItem('authToken'); 
+};
+
+
 const CarritoPage = ({ cartItems, setCartItems }) => {
 
     const [purchaseMessage, setPurchaseMessage] = useState('');
     const [productos, setProductos] = useState([]);
+    const [isLoading, setIsLoading] = useState(false); 
 
     useEffect(() => {
         saveCartToLocalStorage(cartItems);
@@ -69,9 +75,52 @@ const CarritoPage = ({ cartItems, setCartItems }) => {
         setPurchaseMessage("✅ ¡El carrito ha sido vaciado completamente!");
     };
 
-    const finalizarCompra = () => {
-        setCartItems([]);
-        setPurchaseMessage("✅ ¡Gracias por tu compra! Tu pedido ha sido procesado.");
+    const finalizarCompra = async () => {
+        if (cartItems.length === 0) {
+            setPurchaseMessage("❌ El carrito está vacío. Añade productos para comprar.");
+            return;
+        }
+
+        setIsLoading(true);
+        const token = getAuthToken();
+        
+        const purchaseData = {
+            itemsJson: JSON.stringify(cartItems.map(item => ({
+                codigo: item.codigo,
+                nombre: item.nombre,
+                precio: item.precio,
+                cantidad: item.quantity
+            }))),
+            subtotal: subtotal,
+            costoEnvio: costoEnvio,
+            totalPagar: totalPagar,
+        };
+
+        try {
+            const response = await fetch('http://localhost:8080/api/carrito', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token ? `Bearer ${token}` : '', 
+                },
+                body: JSON.stringify(purchaseData),
+            });
+
+            if (response.ok) {
+                setCartItems([]);
+                setPurchaseMessage("✅ ¡Gracias por tu compra! Pedido registrado con éxito en el servidor.");
+            } else if (response.status === 401) {
+                setPurchaseMessage("❌ Error: No autorizado. Por favor, inicia sesión para completar tu compra.");
+            } else {
+                const errorText = await response.text();
+                setPurchaseMessage(`❌ Error al procesar el pedido. Código: ${response.status}.`);
+            }
+        } catch (error) {
+            console.error("Error de conexión:", error);
+            setPurchaseMessage("❌ Error de conexión: No se pudo contactar al servidor de Spring Boot.");
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const subtotal = cartItems.reduce((sum, item) => sum + (item.precio * item.quantity), 0);
@@ -79,7 +128,7 @@ const CarritoPage = ({ cartItems, setCartItems }) => {
     const totalPagar = subtotal + costoEnvio;
 
     return (
-        <>
+        <div className="p-4 bg-white"> 
             <Productos productos={productos} addItemToCart={addItemToCart} />
 
             <Carrito 
@@ -92,8 +141,9 @@ const CarritoPage = ({ cartItems, setCartItems }) => {
                 removeItem={removeItem}
                 updateQuantity={updateQuantity}
                 purchaseMessage={purchaseMessage}
+                isLoading={isLoading}
             />
-        </>
+        </div>
     );
 };
 
