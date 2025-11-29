@@ -40,7 +40,7 @@ function MyNavbar() {
                     <img src='/images/contacto.png' alt="Home" style={{ width: '25px', height: '25px', marginRight: '8px'}} />
                     Contacto
                 </Nav.Link>
-                <Nav.Link href="/user" style={{ color: '#1E90FF', fontFamily: "'Roboto', sans-serif", display: 'flex', alignItems: 'center' }}>
+                <Nav.Link href="/login" style={{ color: '#1E90FF', fontFamily: "'Roboto', sans-serif", display: 'flex', alignItems: 'center' }}>
                     <img src='/images/login.png' alt="Home" style={{ width: '25px', height: '25px', marginRight: '8px'}} />
                     Iniciar Sesion
                 </Nav.Link>
