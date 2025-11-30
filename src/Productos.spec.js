@@ -1,36 +1,29 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { act } from 'react';
+import { render, screen } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
+import { describe, it, expect } from 'vitest';
 import Productos from './components/Productos';
 
-// Crear un contenedor DOM para montar el componente durante el test
-let container = null;
-
-beforeEach(() => {
-    container = document.createElement('div');
-    document.body.appendChild(container);
-});
-
-afterEach(() => {
-    document.body.removeChild(container);
-    container = null;
-});
-
 describe('Componente Productos', () => {
+
     it('renderiza correctamente el título y los productos', () => {
-        act(() => {
-        createRoot(container).render(<Productos />);
-        });
+        render(
+        <MemoryRouter>
+            <Productos />
+        </MemoryRouter>
+        );
 
-        // Verifica que el título esté renderizado
-        expect(container.querySelector('h1').textContent).toBe('Productos');
+    // Verifica que el título exista y tenga el texto esperado
+    const h1 = screen.getByRole('heading', { level: 1 });
+    expect(h1).toBeDefined();
+    expect(h1.textContent).toBe('Productos');
 
-        // Verifica que haya al menos una card (producto) en el renderizado
-        const cards = container.querySelectorAll('.card');
-        expect(cards.length).toBeGreaterThan(0);
+    // Verifica que haya tarjetas de productos con la clase 'card'
+    const cards = screen.getAllByClass('card'); 
+    expect(cards.length).toBeGreaterThan(0);
 
-        // Verifica el contenido de la primera card
-        const firstCard = cards[0];
-        expect(firstCard.textContent).toContain('CLP'); // Precio mostrado
+    // verifica que el contenido contenga clp
+    expect(cards[0].textContent).toContain('CLP');
     });
+
 });
