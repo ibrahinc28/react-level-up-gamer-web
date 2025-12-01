@@ -13,6 +13,10 @@ export default defineConfig({
         }
     },
     base: "./",
+    build: {
+        outDir: './build',
+        assetsDir: './',
+    },
     test: {
     globals: true,
     environment: "jsdom",

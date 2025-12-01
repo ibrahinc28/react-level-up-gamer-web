@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { getUser, deleteUser } from "../apiuser"
 
 export default function UserTable() {
-  const [pacientes, setUser] = useState([])
+  const [usuarios, setUser] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const [debug, setDebug] = useState(null)
@@ -18,7 +18,7 @@ export default function UserTable() {
       setUser(data)
     } catch (e) {
       console.error(e)
-      setError(e?.message || "Error al cargar usuarios")
+      setError(e?.message || " Error al cargar usuarios -" || e?.map)
     } finally {
       setLoading(false)
     }
@@ -35,7 +35,7 @@ export default function UserTable() {
   if (loading) return <p>Cargando...</p>
   if (error) return <p style={{ color:"red" }}>⚠ {error}</p>
 
-  if (!pacientes.length) {
+  if (!usuarios.length) {
     return (
       <div>
         <p>No hay usuarios para mostrar.</p>
@@ -60,7 +60,7 @@ export default function UserTable() {
         </tr>
       </thead>
       <tbody>
-        {pacientes.map(p => (
+        {usuarios.map(p => (
           <tr key={p.id ?? p.idUser}>
             <td>{p.id ?? p.idUser}</td>
             <td>{p.nombre}</td>
