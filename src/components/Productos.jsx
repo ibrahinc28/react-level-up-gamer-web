@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const API_URL = "http://localhost:8080/api/productos";
+const API_URL = "http://44.223.134.187:8080/api/productos";
 
 function Productos({ addItemToCart }) {
     const [productos, setProductos] = useState([]);

@@ -30,7 +30,7 @@ const CarritoPage = ({ cartItems, setCartItems }) => {
     }, [cartItems]);
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/productos')
+        fetch('http://44.223.134.187:8080/api/productos')
             .then(response => response.json())
             .then(data => setProductos(data))
             .catch(error => console.error("Error al cargar productos:", error));

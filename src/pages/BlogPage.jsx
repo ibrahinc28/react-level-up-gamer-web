@@ -54,7 +54,7 @@ function BlogPage() {
     useEffect(() => {
         const fetchArticles = async () => {
             try {
-                const res = await fetch('http://localhost:8080/api/blog');
+                const res = await fetch('http://44.223.134.187:8080/api/blog');
                 if (!res.ok) throw new Error('Error fetching blog articles');
                 const data = await res.json();
                 setArticlesFromBackend(data);

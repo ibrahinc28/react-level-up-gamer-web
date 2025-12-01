@@ -5,9 +5,9 @@ import Accordion from 'react-bootstrap/Accordion';
 import AdminProductoCrear from './AdminProductoCrear';
 import AdminProductoEditar from './AdminProductoEditar';
 import AdminProductoEliminar from './AdminProductoEliminar';
-import AdminUsuarioCrear from './AdminUsuarioCrear';
-import AdminUsuarioEditar from './AdminUsuarioEditar';
-import AdminUsuarioEliminar from './AdminUsuarioEliminar';
+import UserCreate from './UserCreate';
+import UserEdit from './UserEdit';
+import UserTable from './UserTable';
 
 
 function AdminBotones() {
@@ -23,7 +23,7 @@ function AdminBotones() {
         Productos
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} size="xl">
         <Modal.Header closeButton>
           <Modal.Title>Productos</Modal.Title>
         </Modal.Header>
@@ -66,7 +66,7 @@ function AdminBotones() {
         Usuarios
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} size="xl">
         <Modal.Header closeButton>
           <Modal.Title>Usuarios</Modal.Title>
         </Modal.Header>
@@ -76,19 +76,19 @@ function AdminBotones() {
             <Accordion.Item eventKey="3">
               <Accordion.Header>Crear usuario</Accordion.Header>
               <Accordion.Body>
-                <AdminUsuarioCrear />
+                <UserCreate />
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="4">
               <Accordion.Header>Editar usuario</Accordion.Header>
               <Accordion.Body>
-                <AdminUsuarioEditar />
+                <UserEdit />
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="5">
               <Accordion.Header>Eliminar usuario</Accordion.Header>
               <Accordion.Body>
-                <AdminUsuarioEliminar />
+                <UserTable />
               </Accordion.Body>
             </Accordion.Item>
           </Accordion>

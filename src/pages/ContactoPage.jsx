@@ -64,7 +64,7 @@ function ContactoPage() {
         if (!validateForm()) return;
 
         try {
-            const response = await fetch('http://localhost:8080/api/contactos', {
+            const response = await fetch('http://44.223.134.187:8080/api/contactos', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
