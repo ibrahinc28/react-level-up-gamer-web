@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const api = axios.create({
-  baseURL: "/api/", // gracias al proxy de Vite
+  baseURL: "http://44.223.134.187:8080/api/", // gracias al proxy de Vite
 })
 
 //export const getPacientes = () => api.get("/paciente")
