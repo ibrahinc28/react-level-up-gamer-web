@@ -1,26 +1,38 @@
 import React from 'react';
 import { Table } from 'react-bootstrap'; 
+import { Link } from 'react-router-dom';
+
+
 const CartRow = ({ item, removeItem, updateQuantity }) => {
     
-    const itemSubtotal = item.price * item.quantity;
+    const itemSubtotal = item.precio * item.quantity;
 
     const getQuantityButtonClass = (isDisabled) => 
         isDisabled ? 'btn-disabled' : 'btn-default';
 
     return (
-        <tr key={item.id} style={{ fontSize: '1.1em' }}> 
+        <tr key={item.codigo} style={{ fontSize: '1.1em' }}> 
+            <td>
+                <Link to={`/productos/${item.codigo}`}>
+                <img 
+                    src={item.imagen} 
+                    alt={item.nombre} 
+                    style={{ width: '82px', height: '82px', objectFit: 'cover', borderRadius: '8px', cursor: 'pointer' }} 
+                />
+                </Link>
+            </td>
             <td style={{ fontWeight: 'bold', fontSize: '1.2em' }}>
-                {item.name}
+                {item.nombre}
             </td>
             
             <td style={{ fontSize: '1em' }}>
-                Precio: ${item.price.toLocaleString('es-CL')}
+                Precio:  ${item.precio ? item.precio.toLocaleString('es-CL') : '0'}
             </td>
             
             <td style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <button 
                     className={getQuantityButtonClass(item.quantity <= 1)}
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                    onClick={() => updateQuantity(item.codigo, item.quantity - 1)}
                     disabled={item.quantity <= 1}
                     style={{ padding: '8px 15px', fontSize: '1.1em' }}
                 >
@@ -29,13 +41,13 @@ const CartRow = ({ item, removeItem, updateQuantity }) => {
                 <input
                     type="number"
                     value={item.quantity}
-                    onChange={(e) => updateQuantity(item.id, parseInt(e.target.value) || 0)}
+                    onChange={(e) => updateQuantity(item.codigo, parseInt(e.target.value) || 0)}
                     style={{ width: '60px', height: '40px', textAlign: 'center', margin: '0 8px', border: '1px solid #555', backgroundColor: 'var(--bg-dark)', color: 'var(--text-light)', fontSize: '1.1em' }} 
                     min="1"
                 />
                 <button 
                     className="btn-default"
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    onClick={() => updateQuantity(item.codigo, item.quantity + 1)}
                     style={{ padding: '8px 15px', fontSize: '1.1em' }}
                 >
                     +
@@ -50,7 +62,7 @@ const CartRow = ({ item, removeItem, updateQuantity }) => {
                 <button
                     style={{ color: 'var(--neon-primary)', border: 'none', background: 'none', cursor: 'pointer', fontSize: '2em', padding: '0 10px' }} 
                     title="Eliminar producto"
-                    onClick={() => removeItem(item.id)}
+                    onClick={() => removeItem(item.codigo)}
                 >
                     X
                 </button>
@@ -72,10 +84,10 @@ const Carrito = ({
     purchaseMessage,
 }) => {
     
-    const formatPriceWithCurrency = (price) => {
+    const formatPriceWithCurrency = (precio) => {
         return (
             <span style={{ whiteSpace: 'nowrap' }}>
-                {price.toLocaleString('es-CL')} CLP
+                {precio.toLocaleString('es-CL')} CLP
             </span>
         );
     };
@@ -116,7 +128,7 @@ const Carrito = ({
                     <tbody>
                         {cartItems.map((item) => (
                             <CartRow 
-                                key={item.id} 
+                                key={item.codigo} 
                                 item={item} 
                                 removeItem={removeItem}
                                 updateQuantity={updateQuantity}
@@ -225,7 +237,7 @@ const Carrito = ({
                         </button>
                     </div>
                     <a 
-                        href="#productos"
+                        href="/productos"
                         className="btn-default"
                         style={{ 
                             textDecoration: 'none', 
