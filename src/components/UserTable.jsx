@@ -18,7 +18,7 @@ export default function UserTable() {
       setUser(data)
     } catch (e) {
       console.error(e)
-      setError(e?.message || "Error al cargar usuarios")
+      setError(e?.message || " Error al cargar usuarios -" || e?.map)
     } finally {
       setLoading(false)
     }
@@ -33,7 +33,7 @@ export default function UserTable() {
   }
 
   if (loading) return <p>Cargando...</p>
-  if (error) return <p style={{ color:"red" }}>⚠ {error.message}</p>
+  if (error) return <p style={{ color:"red" }}>⚠ {error}</p>
 
   if (!usuarios.length) {
     return (
